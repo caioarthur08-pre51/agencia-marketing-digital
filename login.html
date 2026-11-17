@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b1020">
+    <meta name="referrer" content="no-referrer">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+    >
+    <meta name="description" content="Acesso demonstrativo à área da equipe da Agência Elo Digital.">
+    <title>Área da equipe | Agência Elo Digital</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts/auth.js" defer></script>
+    <script src="scripts/login.js" defer></script>
+  </head>
+  <body class="pagina-autenticacao">
+    <a class="pular-conteudo" href="#conteudo-login">Pular para o formulário</a>
+
+    <main id="conteudo-login" class="layout-autenticacao">
+      <section class="painel-autenticacao-visual" aria-labelledby="titulo-visual-login">
+        <a class="marca marca-login" href="index.html" aria-label="Agência Elo Digital — voltar à página inicial">
+          <img src="assets/logo.svg" alt="" width="46" height="46">
+          <span>Elo <strong>Digital</strong></span>
+        </a>
+
+        <div class="conteudo-visual-login">
+          <p class="sobretitulo sobretitulo-claro">Ambiente demonstrativo</p>
+          <h1 id="titulo-visual-login">Toda boa campanha começa com uma equipe conectada.</h1>
+          <p>
+            Entre no painel para visualizar a estrutura planejada da Agência Elo Digital.
+            Nesta etapa, os dados permanecem somente neste navegador.
+          </p>
+
+          <div class="rede-modulos" aria-label="Módulos planejados">
+            <span>CRM</span>
+            <span>Copy</span>
+            <span>Editor</span>
+            <span>Gestor</span>
+            <span>Auditoria</span>
+            <div class="elo-central" aria-hidden="true">
+              <img src="assets/logo.svg" alt="" width="72" height="72">
+            </div>
+          </div>
+        </div>
+
+        <p class="nota-visual-login">Protótipo acadêmico · Marketing Digital · 2026</p>
+        <div class="forma-login forma-login-a" aria-hidden="true"></div>
+        <div class="forma-login forma-login-b" aria-hidden="true"></div>
+      </section>
+
+      <section class="painel-formulario-login" aria-label="Acesso à área da equipe">
+        <div class="topo-formulario-login">
+          <a href="index.html"><span aria-hidden="true">←</span> Voltar para a Home</a>
+          <span class="etiqueta-prototipo">Protótipo acadêmico</span>
+        </div>
+
+        <div class="cartao-autenticacao">
+          <div id="mensagem-global" class="mensagem-formulario" role="status" aria-live="polite" hidden></div>
+
+          <section data-view="login" aria-labelledby="titulo-login">
+            <p class="rotulo-formulario">Área da equipe</p>
+            <h2 id="titulo-login">Boas-vindas de volta!</h2>
+            <p class="introducao-formulario">
+              Entre com seu e-mail e senha para acessar o painel interno.
+            </p>
+
+            <div class="credencial-demo" role="note">
+              <div>
+                <span class="credencial-icone" aria-hidden="true">✦</span>
+                <div>
+                  <strong>Conta de demonstração</strong>
+                  <p><span>admin@agencia.com</span> · senha <span>123456</span></p>
+                </div>
+              </div>
+              <button type="button" data-preencher-demo>Usar conta</button>
+            </div>
+
+            <form id="form-login" novalidate>
+              <div class="campo-formulario">
+                <label for="login-email">E-mail</label>
+                <input id="login-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="voce@agencia.com" required>
+                <p class="erro-campo" data-erro="login-email"></p>
+              </div>
+
+              <div class="campo-formulario">
+                <div class="linha-rotulo">
+                  <label for="login-senha">Senha</label>
+                  <button class="link-texto" type="button" data-abrir-view="recuperar">Esqueci minha senha</button>
+                </div>
+                <div class="campo-senha">
+                  <input id="login-senha" name="senha" type="password" autocomplete="current-password" placeholder="Digite sua senha" required>
+                  <button type="button" data-alternar-senha="login-senha" aria-label="Mostrar senha">
+                    <span aria-hidden="true">◉</span>
+                  </button>
+                </div>
+                <p class="erro-campo" data-erro="login-senha"></p>
+              </div>
+
+              <label class="controle-checkbox">
+                <input id="lembrar" name="lembrar" type="checkbox">
+                <span aria-hidden="true"></span>
+                Lembrar-me neste navegador
+              </label>
+
+              <button class="botao botao-primario botao-largo" type="submit" data-texto-padrao="Entrar no painel">
+                Entrar no painel <span aria-hidden="true">→</span>
+              </button>
+            </form>
+
+            <p class="troca-formulario">
+              Novo integrante?
+              <button class="link-texto link-destaque" type="button" data-abrir-view="cadastro">Criar conta local</button>
+            </p>
+          </section>
+
+          <section data-view="cadastro" aria-labelledby="titulo-cadastro" hidden>
+            <button class="voltar-formulario" type="button" data-abrir-view="login"><span aria-hidden="true">←</span> Voltar ao login</button>
+            <p class="rotulo-formulario">Cadastro demonstrativo</p>
+            <h2 id="titulo-cadastro">Crie uma conta da equipe</h2>
+            <p class="introducao-formulario">A conta existirá somente neste navegador e terá o mesmo nível de acesso das demais.</p>
+
+            <div class="aviso-dados" role="note">
+              <strong>Use apenas dados fictícios.</strong>
+              Nome, e-mail e credencial protegida ficam armazenados localmente neste navegador.
+            </div>
+
+            <form id="form-cadastro" novalidate>
+              <div class="campo-formulario">
+                <label for="cadastro-nome">Nome de demonstração</label>
+                <input id="cadastro-nome" name="nome" type="text" autocomplete="name" maxlength="60" placeholder="Ex.: Ana da Agência" required>
+                <p class="erro-campo" data-erro="cadastro-nome"></p>
+              </div>
+              <div class="campo-formulario">
+                <label for="cadastro-email">E-mail fictício</label>
+                <input id="cadastro-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="ana@agencia.com" required>
+                <p class="erro-campo" data-erro="cadastro-email"></p>
+              </div>
+              <div class="campo-formulario">
+                <label for="cadastro-senha">Senha</label>
+                <div class="campo-senha">
+                  <input id="cadastro-senha" name="senha" type="password" autocomplete="new-password" minlength="6" placeholder="Mínimo de 6 caracteres" required>
+                  <button type="button" data-alternar-senha="cadastro-senha" aria-label="Mostrar senha"><span aria-hidden="true">◉</span></button>
+                </div>
+                <p class="erro-campo" data-erro="cadastro-senha"></p>
+              </div>
+              <div class="campo-formulario">
+                <label for="cadastro-confirmacao">Confirme a senha</label>
+                <div class="campo-senha">
+                  <input id="cadastro-confirmacao" name="confirmacao" type="password" autocomplete="new-password" minlength="6" placeholder="Repita a senha" required>
+                  <button type="button" data-alternar-senha="cadastro-confirmacao" aria-label="Mostrar senha"><span aria-hidden="true">◉</span></button>
+                </div>
+                <p class="erro-campo" data-erro="cadastro-confirmacao"></p>
+              </div>
+              <label class="controle-checkbox controle-termos">
+                <input id="aceite-dados" name="aceite" type="checkbox" required>
+                <span aria-hidden="true"></span>
+                Entendo que este é um protótipo e usarei somente informações fictícias.
+              </label>
+              <p class="erro-campo" data-erro="aceite-dados"></p>
+              <button class="botao botao-primario botao-largo" type="submit" data-texto-padrao="Criar conta local">
+                Criar conta local <span aria-hidden="true">→</span>
+              </button>
+            </form>
+          </section>
+
+          <section data-view="recuperar" aria-labelledby="titulo-recuperar" hidden>
+            <button class="voltar-formulario" type="button" data-abrir-view="login"><span aria-hidden="true">←</span> Voltar ao login</button>
+            <p class="rotulo-formulario">Recuperação simulada</p>
+            <h2 id="titulo-recuperar">Recupere seu acesso local</h2>
+            <p class="introducao-formulario">
+              Informe o e-mail cadastrado. Simularemos o envio e permitiremos a redefinição neste navegador.
+            </p>
+
+            <form id="form-recuperar" novalidate>
+              <div class="campo-formulario">
+                <label for="recuperar-email">E-mail</label>
+                <input id="recuperar-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="voce@agencia.com" required>
+                <p class="erro-campo" data-erro="recuperar-email"></p>
+              </div>
+              <button class="botao botao-primario botao-largo" type="submit" data-texto-padrao="Simular envio do e-mail">
+                Simular envio do e-mail <span aria-hidden="true">→</span>
+              </button>
+            </form>
+
+            <form id="form-nova-senha" class="form-nova-senha" novalidate hidden>
+              <div class="aviso-dados aviso-sucesso" role="status">
+                <strong>E-mail simulado enviado.</strong>
+                Neste protótipo, conclua a redefinição diretamente abaixo.
+              </div>
+              <div class="campo-formulario">
+                <label for="nova-senha">Nova senha</label>
+                <div class="campo-senha">
+                  <input id="nova-senha" name="senha" type="password" autocomplete="new-password" minlength="6" placeholder="Mínimo de 6 caracteres" required>
+                  <button type="button" data-alternar-senha="nova-senha" aria-label="Mostrar senha"><span aria-hidden="true">◉</span></button>
+                </div>
+                <p class="erro-campo" data-erro="nova-senha"></p>
+              </div>
+              <div class="campo-formulario">
+                <label for="nova-senha-confirmacao">Confirme a nova senha</label>
+                <div class="campo-senha">
+                  <input id="nova-senha-confirmacao" name="confirmacao" type="password" autocomplete="new-password" minlength="6" placeholder="Repita a nova senha" required>
+                  <button type="button" data-alternar-senha="nova-senha-confirmacao" aria-label="Mostrar senha"><span aria-hidden="true">◉</span></button>
+                </div>
+                <p class="erro-campo" data-erro="nova-senha-confirmacao"></p>
+              </div>
+              <button class="botao botao-primario botao-largo" type="submit" data-texto-padrao="Salvar nova senha">
+                Salvar nova senha <span aria-hidden="true">→</span>
+              </button>
+            </form>
+          </section>
+        </div>
+
+        <p class="nota-privacidade-login">
+          <span aria-hidden="true">⌁</span>
+          Nenhum dado é enviado para servidor. Este acesso não protege contas reais.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

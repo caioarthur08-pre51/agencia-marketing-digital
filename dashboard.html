@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b1020">
+    <meta name="referrer" content="no-referrer">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+    >
+    <meta name="description" content="Painel demonstrativo interno da Agência Elo Digital.">
+    <title>Painel da equipe | Agência Elo Digital</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts/auth.js" defer></script>
+    <script src="scripts/dashboard.js" defer></script>
+  </head>
+  <body class="pagina-dashboard">
+    <a class="pular-conteudo" href="#conteudo-dashboard">Pular para o painel</a>
+
+    <header class="cabecalho-dashboard">
+      <div class="container barra-dashboard">
+        <a class="marca" href="index.html" aria-label="Agência Elo Digital — página pública">
+          <img src="assets/logo.svg" alt="" width="42" height="42">
+          <span>Elo <strong>Digital</strong></span>
+        </a>
+        <div class="acoes-dashboard">
+          <a class="link-home-dashboard" href="index.html">Ver Home pública</a>
+          <div class="usuario-dashboard">
+            <span class="avatar-usuario" data-avatar>ED</span>
+            <span><strong data-nome-menu>Equipe Elo</strong><small>Acesso demonstrativo</small></span>
+          </div>
+          <button class="botao-sair" type="button" data-sair><span aria-hidden="true">↪</span> Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="conteudo-dashboard">
+      <section class="boas-vindas-dashboard">
+        <div class="container grade-boas-vindas">
+          <div>
+            <p class="sobretitulo">Painel interno · protótipo</p>
+            <h1>Olá, <span data-primeiro-nome>integrante</span>!</h1>
+            <p>Este é o ponto de conexão da equipe. Os cinco módulos aparecem abaixo como visão da estrutura planejada.</p>
+          </div>
+          <div class="resumo-ambiente" role="note">
+            <span class="pulso-status" aria-hidden="true"></span>
+            <div><strong>Ambiente local ativo</strong><span>Dados somente neste navegador</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="secao-painel" aria-labelledby="titulo-modulos-painel">
+        <div class="container">
+          <div class="cabecalho-painel">
+            <div>
+              <p class="rotulo-formulario">Visão geral</p>
+              <h2 id="titulo-modulos-painel">Módulos da agência</h2>
+            </div>
+            <span class="contador-modulos">5 áreas planejadas</span>
+          </div>
+
+          <div class="grade-modulos-painel">
+            <article class="cartao-modulo-painel modulo-painel-crm">
+              <div class="cabecalho-modulo">
+                <span class="icone-painel" aria-hidden="true">◎</span>
+                <span class="selo-em-breve">Em breve</span>
+              </div>
+              <h3>CRM</h3>
+              <p>Dados e relacionamento</p>
+              <ul>
+                <li>Dados da empresa</li>
+                <li>Comportamento do usuário</li>
+                <li>Análise preditiva</li>
+              </ul>
+              <span class="barra-progresso"><span></span></span>
+            </article>
+
+            <article class="cartao-modulo-painel modulo-painel-copy">
+              <div class="cabecalho-modulo">
+                <span class="icone-painel" aria-hidden="true">✦</span>
+                <span class="selo-em-breve">Em breve</span>
+              </div>
+              <h3>Copy</h3>
+              <p>Textos e ideias de anúncios</p>
+              <ul>
+                <li>Objetivo e formatos</li>
+                <li>Gatilhos e ofertas</li>
+                <li>Prompts de criação</li>
+              </ul>
+              <span class="barra-progresso"><span></span></span>
+            </article>
+
+            <article class="cartao-modulo-painel modulo-painel-editor">
+              <div class="cabecalho-modulo">
+                <span class="icone-painel" aria-hidden="true">◇</span>
+                <span class="selo-em-breve">Em breve</span>
+              </div>
+              <h3>Editor</h3>
+              <p>Imagens e vídeos</p>
+              <ul>
+                <li>Tipos e dimensões</li>
+                <li>Stories e reels</li>
+                <li>Integração futura com IA</li>
+              </ul>
+              <span class="barra-progresso"><span></span></span>
+            </article>
+
+            <article class="cartao-modulo-painel modulo-painel-gestor">
+              <div class="cabecalho-modulo">
+                <span class="icone-painel" aria-hidden="true">↗</span>
+                <span class="selo-em-breve">Em breve</span>
+              </div>
+              <h3>Gestor</h3>
+              <p>Gestão de campanhas</p>
+              <ul>
+                <li>Campanhas orgânicas</li>
+                <li>Mídia paga</li>
+                <li>Redes e anúncios</li>
+              </ul>
+              <span class="barra-progresso"><span></span></span>
+            </article>
+
+            <article class="cartao-modulo-painel modulo-painel-auditoria">
+              <div class="cabecalho-modulo">
+                <span class="icone-painel" aria-hidden="true">✓</span>
+                <span class="selo-em-breve">Em breve</span>
+              </div>
+              <h3>Auditoria</h3>
+              <p>Revisão e conformidade</p>
+              <ul>
+                <li>Diretrizes e LGPD</li>
+                <li>Alertas e pareceres</li>
+                <li>Registro de aceites</li>
+              </ul>
+              <span class="barra-progresso"><span></span></span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="secao-informacao-dashboard" aria-labelledby="titulo-sobre-prototipo">
+        <div class="container grade-informacao-dashboard">
+          <div>
+            <p class="rotulo-formulario">Sobre esta versão</p>
+            <h2 id="titulo-sobre-prototipo">A fundação está pronta para as próximas etapas.</h2>
+            <p>
+              A Home, o cadastro, o login e este painel formam a primeira entrega funcional.
+              As áreas de negócio serão desenvolvidas progressivamente.
+            </p>
+          </div>
+          <dl class="lista-tecnica-dashboard">
+            <div><dt>Autenticação</dt><dd>Demonstrativa e local</dd></div>
+            <div><dt>Tipo de acesso</dt><dd>Único para toda a equipe</dd></div>
+            <div><dt>Armazenamento</dt><dd>Somente neste navegador</dd></div>
+          </dl>
+        </div>
+      </section>
+    </main>
+
+    <footer class="rodape-dashboard">
+      <div class="container">
+        <p>Agência Elo Digital · Projeto acadêmico de Marketing Digital</p>
+        <p data-data-painel></p>
+      </div>
+    </footer>
+  </body>
+</html>
