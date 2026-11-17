@@ -61,6 +61,7 @@ externo. As fontes Manrope e Inter estão incluídas localmente sob a Open Font 
 - Caio — Coordenação Geral e Integração;
 - Guilherme Almeida — Arquitetura e Desenvolvimento;
 - Letícia Costa — Conteúdo e Coerência Acadêmica;
-- Larissa Costa — Design e Organização Visual.
+- Larissa Costa — Design e Organização Visual;
+- Prof. Me. Juaceli Soares da Costa Junior — Professor orientador.
 
 Projeto acadêmico de Marketing Digital — 2026.
