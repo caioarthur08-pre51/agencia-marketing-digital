@@ -14,6 +14,7 @@
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css">
     <script src="scripts/auth.js" defer></script>
+    <script src="scripts/data.js" defer></script>
     <script src="scripts/dashboard.js" defer></script>
   </head>
   <body class="pagina-dashboard">
@@ -42,7 +43,7 @@
           <div>
             <p class="sobretitulo">Painel interno · protótipo</p>
             <h1>Olá, <span data-primeiro-nome>integrante</span>!</h1>
-            <p>Este é o ponto de conexão da equipe. Os cinco módulos aparecem abaixo como visão da estrutura planejada.</p>
+            <p>Este é o ponto de conexão da equipe. CRM, Copy e Editor já estão disponíveis e compartilham os dados de cada campanha.</p>
           </div>
           <div class="resumo-ambiente" role="note">
             <span class="pulso-status" aria-hidden="true"></span>
@@ -62,50 +63,50 @@
           </div>
 
           <div class="grade-modulos-painel">
-            <article class="cartao-modulo-painel modulo-painel-crm">
+            <a class="cartao-modulo-painel modulo-painel-crm modulo-disponivel" href="crm.html">
               <div class="cabecalho-modulo">
                 <span class="icone-painel" aria-hidden="true">◎</span>
-                <span class="selo-em-breve">Em breve</span>
+                <span class="selo-disponivel">Disponível</span>
               </div>
               <h3>CRM</h3>
               <p>Dados e relacionamento</p>
               <ul>
                 <li>Dados da empresa</li>
                 <li>Comportamento do usuário</li>
-                <li>Análise preditiva</li>
+                <li><strong data-count-companies>0</strong> empresas cadastradas</li>
               </ul>
               <span class="barra-progresso"><span></span></span>
-            </article>
+            </a>
 
-            <article class="cartao-modulo-painel modulo-painel-copy">
+            <a class="cartao-modulo-painel modulo-painel-copy modulo-disponivel" href="copy.html">
               <div class="cabecalho-modulo">
                 <span class="icone-painel" aria-hidden="true">✦</span>
-                <span class="selo-em-breve">Em breve</span>
+                <span class="selo-disponivel">Disponível</span>
               </div>
               <h3>Copy</h3>
               <p>Textos e ideias de anúncios</p>
               <ul>
                 <li>Objetivo e formatos</li>
                 <li>Gatilhos e ofertas</li>
-                <li>Prompts de criação</li>
+                <li><strong data-count-copies>0</strong> textos salvos</li>
               </ul>
               <span class="barra-progresso"><span></span></span>
-            </article>
+            </a>
 
-            <article class="cartao-modulo-painel modulo-painel-editor">
+            <a class="cartao-modulo-painel modulo-painel-editor modulo-disponivel" href="editor.html">
               <div class="cabecalho-modulo">
                 <span class="icone-painel" aria-hidden="true">◇</span>
-                <span class="selo-em-breve">Em breve</span>
+                <span class="selo-disponivel">Disponível</span>
               </div>
               <h3>Editor</h3>
               <p>Imagens e vídeos</p>
               <ul>
                 <li>Tipos e dimensões</li>
                 <li>Stories e reels</li>
-                <li>Integração futura com IA</li>
+                <li><strong data-count-briefings>0</strong> peças salvas</li>
               </ul>
               <span class="barra-progresso"><span></span></span>
-            </article>
+            </a>
 
             <article class="cartao-modulo-painel modulo-painel-gestor">
               <div class="cabecalho-modulo">
@@ -144,10 +145,10 @@
         <div class="container grade-informacao-dashboard">
           <div>
             <p class="rotulo-formulario">Sobre esta versão</p>
-            <h2 id="titulo-sobre-prototipo">A fundação está pronta para as próximas etapas.</h2>
+              <h2 id="titulo-sobre-prototipo">Três módulos já trabalham em conjunto.</h2>
             <p>
-              A Home, o cadastro, o login e este painel formam a primeira entrega funcional.
-              As áreas de negócio serão desenvolvidas progressivamente.
+              O CRM organiza empresas e campanhas, o Copy produz textos e o Editor monta
+              briefings visuais. Gestor e Auditoria permanecem planejados para as próximas etapas.
             </p>
           </div>
           <dl class="lista-tecnica-dashboard">

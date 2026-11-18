@@ -2,11 +2,19 @@
   "use strict";
 
   const auth = window.EloAuth;
+  const dataStore = window.EloData;
   const sessao = auth.obterSessao();
 
   if (!sessao?.usuario) {
     window.location.replace("login.html?acesso=necessario");
     return;
+  }
+
+  const dados = dataStore?.ensureDemoData();
+  if (dados) {
+    document.querySelector("[data-count-companies]").textContent = dados.companies.length;
+    document.querySelector("[data-count-copies]").textContent = dados.copies.length;
+    document.querySelector("[data-count-briefings]").textContent = dados.briefings.length;
   }
 
   const nome = sessao.usuario.nome || "Integrante";

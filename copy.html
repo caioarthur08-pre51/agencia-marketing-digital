@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#ec4899"><meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'">
+    <meta name="description" content="Gerador de textos demonstrativo da Agência Elo Digital."><title>Copy | Agência Elo Digital</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css">
+    <script src="scripts/auth.js" defer></script><script src="scripts/data.js" defer></script><script src="scripts/module-shell.js" defer></script><script src="scripts/copy.js" defer></script>
+  </head>
+  <body class="pagina-modulo modulo-copy">
+    <a class="pular-conteudo" href="#conteudo-modulo">Pular para o conteúdo</a>
+    <header class="cabecalho-modulo-site"><div class="container barra-modulo-site">
+      <a class="marca" href="dashboard.html" aria-label="Agência Elo Digital — painel"><img src="assets/logo.svg" alt="" width="42" height="42"><span>Elo <strong>Digital</strong></span></a>
+      <nav class="navegacao-modulos" aria-label="Módulos internos"><a href="dashboard.html">Painel</a><a href="crm.html">CRM</a><a class="ativo" href="copy.html" aria-current="page">Copy</a><a href="editor.html">Editor</a><span>Gestor <small>Em breve</small></span><span>Auditoria <small>Em breve</small></span></nav>
+      <div class="acoes-modulo"><span class="avatar-usuario" data-avatar>ED</span><span class="nome-usuario-modulo" data-nome-menu>Equipe Elo</span><button class="botao-sair" type="button" data-sair>Sair</button></div>
+    </div></header>
+    <main id="conteudo-modulo">
+      <section class="hero-modulo"><div class="container hero-modulo-conteudo"><div><p class="sobretitulo">Copy · Textos e ideias de anúncios</p><h1>Da estratégia à mensagem, com contexto e responsabilidade.</h1><p>Configure o formato, o objetivo e o tom para gerar uma sugestão local editável e um prompt pronto para usar em uma ferramenta externa de IA.</p></div><a class="botao botao-primario" href="#historico">Ver histórico</a></div></section>
+      <section class="area-modulo container">
+        <div class="aviso-prototipo" role="note"><span aria-hidden="true">i</span><p><strong>Geração local.</strong> Nenhum dado é enviado a serviços externos. Os modelos usam somente o conteúdo informado e não inventam avaliações, descontos, prazos ou resultados.</p></div>
+        <div class="layout-copy">
+          <section class="painel-modulo painel-configuracao" aria-labelledby="titulo-config-copy">
+            <div class="cabecalho-painel-modulo"><div><p class="rotulo-formulario">Configuração guiada</p><h2 id="titulo-config-copy">Criar texto</h2></div><button class="botao-texto" type="button" data-clear-copy>Limpar</button></div>
+            <form data-copy-form novalidate>
+              <input type="hidden" name="id">
+              <label class="campo-formulario"><span>Campanha compartilhada *</span><select name="campaignId" required></select><small data-error-for="campaignId"></small></label>
+              <div class="resumo-campanha" data-campaign-summary><p>Selecione uma campanha para preencher empresa, produto, objetivo e público.</p></div>
+              <div class="grade-formulario">
+                <label class="campo-formulario"><span>Tipo de texto *</span><select name="type" required><option value="Legenda para post">Legenda para post</option><option value="Story">Texto para story</option><option value="Anúncio">Anúncio</option><option value="WhatsApp">Mensagem de WhatsApp</option><option value="E-mail promocional">E-mail promocional</option></select></label>
+                <label class="campo-formulario"><span>Objetivo *</span><select name="objective" required></select></label>
+                <label class="campo-formulario"><span>Tom de voz *</span><select name="tone"><option>Profissional</option><option>Acolhedor</option><option>Criativo</option><option>Direto</option><option>Promocional</option></select></label>
+                <label class="campo-formulario"><span>Tamanho *</span><select name="length"><option>Curto</option><option selected>Médio</option><option>Detalhado</option></select></label>
+                <label class="campo-formulario campo-largo"><span>Gatilho de comunicação</span><select name="trigger"><option>Sem gatilho</option><option>Benefício concreto</option><option>Novidade</option><option>Prova social</option><option>Urgência</option><option>Escassez</option></select></label>
+              </div>
+              <div class="campo-condicional" data-social-proof hidden><label class="campo-formulario"><span>Avaliação ou depoimento real *</span><textarea name="socialProof" rows="3" maxlength="350" placeholder="Informe a evidência fornecida pelo cliente."></textarea><small data-error-for="socialProof"></small></label></div>
+              <div class="grade-formulario bloco-oferta">
+                <label class="campo-formulario"><span>Preço</span><input name="price" maxlength="50" placeholder="Ex.: R$ 19,90"></label>
+                <label class="campo-formulario"><span>Desconto</span><input name="discount" maxlength="80" placeholder="Ex.: 10% no Pix"></label>
+                <label class="campo-formulario"><span>Prazo/data da oferta</span><input name="deadline" maxlength="80" placeholder="Ex.: até 30/11/2026"></label>
+                <label class="campo-formulario"><span>Quantidade disponível</span><input name="quantity" maxlength="80" placeholder="Ex.: 20 unidades"></label>
+                <label class="campo-formulario campo-largo"><span>Condições</span><textarea name="conditions" rows="2" maxlength="250" placeholder="Informe regras reais da oferta."></textarea></label>
+                <label class="campo-formulario campo-largo"><span>Instruções complementares</span><textarea name="instructions" rows="3" maxlength="400" placeholder="Opcional: termos obrigatórios, canal, palavras a evitar..."></textarea></label>
+              </div>
+              <p class="mensagem-formulario" data-copy-form-message role="alert"></p>
+              <button class="botao botao-primario botao-largo" type="submit">Gerar sugestão e prompt</button>
+            </form>
+          </section>
+
+          <section class="painel-modulo painel-resultado-copy" aria-labelledby="titulo-resultado-copy">
+            <div class="cabecalho-painel-modulo"><div><p class="rotulo-formulario">Resultado editável</p><h2 id="titulo-resultado-copy">Sua sugestão</h2></div><span class="selo-disponivel">Modelo local</span></div>
+            <div class="estado-inicial-copy" data-copy-empty><span aria-hidden="true">✦</span><h3>Configure os campos ao lado.</h3><p>A sugestão aparecerá aqui para revisão antes de ser salva.</p></div>
+            <div data-copy-result hidden>
+              <label class="campo-formulario"><span>Texto gerado</span><textarea data-generated-text rows="12" aria-describedby="copy-edit-hint"></textarea><small id="copy-edit-hint">Você pode editar livremente antes de salvar.</small></label>
+              <div class="grupo-acoes-compactas"><button class="botao-secundario" type="button" data-copy-text>Copiar texto</button><button class="botao-secundario" type="button" data-download-text>Baixar TXT</button><button class="botao botao-primario" type="button" data-save-copy>Salvar no histórico</button></div>
+              <div class="caixa-prompt"><div><p class="rotulo-formulario">Prompt para IA externa</p><button class="botao-texto" type="button" data-copy-prompt>Copiar prompt</button></div><pre data-generated-prompt></pre></div>
+            </div>
+          </section>
+        </div>
+
+        <section id="historico" class="painel-modulo" aria-labelledby="titulo-historico-copy">
+          <div class="cabecalho-painel-modulo"><div><p class="rotulo-formulario">Versões salvas</p><h2 id="titulo-historico-copy">Histórico do Copy</h2></div><span class="contador-registros"><strong data-copy-count>0</strong> textos</span></div>
+          <div class="grade-historico" data-copy-history></div>
+          <div class="estado-vazio compacto" data-history-empty hidden><h3>Nenhum texto salvo ainda.</h3><p>Gere sua primeira sugestão e salve uma versão para compará-la depois.</p></div>
+        </section>
+      </section>
+    </main>
+    <footer class="rodape-dashboard"><div class="container"><p>Agência Elo Digital · Projeto acadêmico de Marketing Digital</p><p>Copy demonstrativo · sem API externa</p></div></footer>
+  </body>
+</html>

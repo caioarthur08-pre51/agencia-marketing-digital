@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'">
+    <meta name="description" content="CRM demonstrativo da Agência Elo Digital.">
+    <title>CRM | Agência Elo Digital</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts/auth.js" defer></script>
+    <script src="scripts/data.js" defer></script>
+    <script src="scripts/module-shell.js" defer></script>
+    <script src="scripts/crm.js" defer></script>
+  </head>
+  <body class="pagina-modulo modulo-crm">
+    <a class="pular-conteudo" href="#conteudo-modulo">Pular para o conteúdo</a>
+    <header class="cabecalho-modulo-site">
+      <div class="container barra-modulo-site">
+        <a class="marca" href="dashboard.html" aria-label="Agência Elo Digital — painel"><img src="assets/logo.svg" alt="" width="42" height="42"><span>Elo <strong>Digital</strong></span></a>
+        <nav class="navegacao-modulos" aria-label="Módulos internos">
+          <a href="dashboard.html">Painel</a><a class="ativo" href="crm.html" aria-current="page">CRM</a><a href="copy.html">Copy</a><a href="editor.html">Editor</a><span>Gestor <small>Em breve</small></span><span>Auditoria <small>Em breve</small></span>
+        </nav>
+        <div class="acoes-modulo"><span class="avatar-usuario" data-avatar>ED</span><span class="nome-usuario-modulo" data-nome-menu>Equipe Elo</span><button class="botao-sair" type="button" data-sair>Sair</button></div>
+      </div>
+    </header>
+
+    <main id="conteudo-modulo">
+      <section class="hero-modulo">
+        <div class="container hero-modulo-conteudo">
+          <div><p class="sobretitulo">CRM · Dados e relacionamento</p><h1>Relacionamentos mais claros, próximos passos mais seguros.</h1><p>Cadastre empresas e campanhas fictícias, acompanhe o estágio de relacionamento e priorize contatos com uma pontuação demonstrativa.</p></div>
+          <button class="botao botao-primario" type="button" data-open-company>+ Adicionar empresa</button>
+        </div>
+      </section>
+
+      <section class="area-modulo container" aria-label="Resumo do CRM">
+        <div class="cartoes-indicadores">
+          <article><span>Empresas</span><strong data-count-companies>0</strong><small>cadastradas</small></article>
+          <article><span>Campanhas</span><strong data-count-campaigns>0</strong><small>integradas</small></article>
+          <article><span>Em proposta</span><strong data-count-proposals>0</strong><small>para acompanhar</small></article>
+          <article><span>Clientes</span><strong data-count-clients>0</strong><small>convertidos</small></article>
+        </div>
+
+        <div class="aviso-prototipo" role="note"><span aria-hidden="true">i</span><p><strong>Indicador demonstrativo.</strong> Pontuação calculada com regras simples, com base no status e na data do último contato. Use-a como apoio para priorizar o acompanhamento. Ela não representa uma probabilidade de venda.</p></div>
+
+        <section class="painel-modulo" aria-labelledby="titulo-empresas">
+          <div class="cabecalho-painel-modulo"><div><p class="rotulo-formulario">Base de relacionamento</p><h2 id="titulo-empresas">Empresas</h2></div><div class="grupo-acoes-compactas"><button class="botao-secundario" type="button" data-open-campaign>+ Nova campanha</button><button class="botao-secundario" type="button" data-export-json>Exportar JSON</button><button class="botao-secundario" type="button" data-export-csv>Exportar CSV</button><label class="botao-secundario upload-botao">Importar JSON<input type="file" accept="application/json,.json" data-import-json></label><button class="botao-texto" type="button" data-restore-demo>Restaurar demonstração</button></div></div>
+          <div class="filtros-modulo">
+            <label><span>Pesquisar</span><input type="search" data-search placeholder="Nome, segmento ou região"></label>
+            <label><span>Status</span><select data-filter-status><option value="">Todos os status</option></select></label>
+            <label><span>Ordenar</span><select data-sort><option value="name">Nome (A–Z)</option><option value="recent">Cadastro mais recente</option><option value="contact">Último contato</option></select></label>
+          </div>
+          <div class="tabela-responsiva">
+            <table class="tabela-crm"><thead><tr><th>Empresa</th><th>Status</th><th>Último contato</th><th>Pontuação de potencial</th><th>Campanhas</th><th><span class="visually-hidden">Ações</span></th></tr></thead><tbody data-company-list></tbody></table>
+          </div>
+          <div class="estado-vazio" data-empty hidden><span aria-hidden="true">◎</span><h3>Nenhuma empresa encontrada.</h3><p>Adicione sua primeira empresa ou ajuste os filtros para começar a organizar os dados.</p><button class="botao botao-primario" type="button" data-open-company>Adicionar empresa</button></div>
+        </section>
+
+        <section class="painel-modulo" aria-labelledby="titulo-campanhas">
+          <div class="cabecalho-painel-modulo"><div><p class="rotulo-formulario">Conexão entre módulos</p><h2 id="titulo-campanhas">Campanhas</h2></div><button class="botao-secundario" type="button" data-open-campaign>+ Nova campanha</button></div>
+          <div class="lista-campanhas" data-campaign-list></div>
+          <div class="estado-vazio compacto" data-campaign-empty hidden><h3>Nenhuma campanha cadastrada.</h3><p>Crie uma campanha para compartilhar empresa, produto e objetivo com o Copy e o Editor.</p></div>
+        </section>
+      </section>
+    </main>
+
+    <dialog class="dialogo-modulo" data-company-dialog aria-labelledby="company-dialog-title">
+      <form method="dialog" data-company-form novalidate>
+        <div class="topo-dialogo"><div><p class="rotulo-formulario">CRM</p><h2 id="company-dialog-title" data-company-title>Adicionar empresa</h2></div><button class="fechar-dialogo" type="button" data-close-dialog aria-label="Fechar">×</button></div>
+        <input type="hidden" name="id">
+        <fieldset><legend>Informações principais</legend><div class="grade-formulario">
+          <label class="campo-formulario"><span>Nome da empresa *</span><input name="name" required maxlength="80"><small data-error-for="name"></small></label>
+          <label class="campo-formulario"><span>Segmento *</span><input name="segment" required maxlength="80"><small data-error-for="segment"></small></label>
+          <label class="campo-formulario"><span>Região de atuação *</span><input name="region" required maxlength="100"><small data-error-for="region"></small></label>
+          <label class="campo-formulario"><span>Status *</span><select name="status" required></select></label>
+          <label class="campo-formulario"><span>Data do último contato *</span><input type="date" name="lastContact" required><small data-error-for="lastContact"></small></label>
+          <label class="campo-formulario"><span>Nível de interesse</span><select name="interestLevel"><option value="">Não informado</option><option>Baixo</option><option>Médio</option><option>Alto</option></select></label>
+          <label class="campo-formulario campo-largo"><span>Resumo do público-alvo *</span><textarea name="audienceSummary" required rows="3" maxlength="400"></textarea><small data-error-for="audienceSummary"></small></label>
+        </div></fieldset>
+        <fieldset><legend>Perfil e comportamento</legend><div class="grade-formulario">
+          <label class="campo-formulario"><span>Faixa etária aproximada</span><input name="ageRange" maxlength="60"></label>
+          <label class="campo-formulario"><span>Localização do público</span><input name="location" maxlength="100"></label>
+          <label class="campo-formulario"><span>Canal preferido</span><input name="preferredChannel" maxlength="80"></label>
+          <label class="campo-formulario"><span>Frequência de interação</span><input name="interactionFrequency" maxlength="80"></label>
+          <label class="campo-formulario campo-largo"><span>Interesses</span><textarea name="interests" rows="2" maxlength="250"></textarea></label>
+          <label class="campo-formulario campo-largo"><span>Necessidades</span><textarea name="needs" rows="2" maxlength="250"></textarea></label>
+          <label class="campo-formulario campo-largo"><span>Observação de comportamento</span><textarea name="behavior" rows="2" maxlength="250"></textarea></label>
+        </div></fieldset>
+        <fieldset><legend>Informações institucionais opcionais</legend><div class="grade-formulario">
+          <label class="campo-formulario campo-largo"><span>Descrição institucional</span><textarea name="description" rows="2" maxlength="350"></textarea></label>
+          <label class="campo-formulario"><span>Produtos e serviços</span><textarea name="products" rows="2" maxlength="250"></textarea></label>
+          <label class="campo-formulario"><span>Canais digitais</span><textarea name="channels" rows="2" maxlength="250"></textarea></label>
+        </div></fieldset>
+        <div class="rodape-dialogo"><button class="botao-secundario" type="button" data-close-dialog>Cancelar</button><button class="botao botao-primario" type="submit">Salvar empresa</button></div>
+      </form>
+    </dialog>
+
+    <dialog class="dialogo-modulo dialogo-compacto" data-campaign-dialog aria-labelledby="campaign-dialog-title">
+      <form method="dialog" data-campaign-form novalidate>
+        <div class="topo-dialogo"><div><p class="rotulo-formulario">Campanha compartilhada</p><h2 id="campaign-dialog-title" data-campaign-title>Nova campanha</h2></div><button class="fechar-dialogo" type="button" data-close-dialog aria-label="Fechar">×</button></div>
+        <input type="hidden" name="id">
+        <div class="grade-formulario">
+          <label class="campo-formulario campo-largo"><span>Empresa vinculada *</span><select name="companyId" required></select><small data-error-for="companyId"></small></label>
+          <label class="campo-formulario campo-largo"><span>Produto ou serviço divulgado *</span><input name="product" required maxlength="120"><small data-error-for="product"></small></label>
+          <label class="campo-formulario campo-largo"><span>Objetivo *</span><select name="objective" required></select></label>
+          <label class="campo-formulario campo-largo"><span>Observações</span><textarea name="notes" rows="3" maxlength="350"></textarea></label>
+        </div>
+        <div class="rodape-dialogo"><button class="botao-secundario" type="button" data-close-dialog>Cancelar</button><button class="botao botao-primario" type="submit">Salvar campanha</button></div>
+      </form>
+    </dialog>
+
+    <footer class="rodape-dashboard"><div class="container"><p>Agência Elo Digital · Projeto acadêmico de Marketing Digital</p><p>CRM demonstrativo · dados locais</p></div></footer>
+  </body>
+</html>

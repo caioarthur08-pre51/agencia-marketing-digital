@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#7c3aed"><meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'">
+    <meta name="description" content="Editor visual demonstrativo da Agência Elo Digital."><title>Editor | Agência Elo Digital</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css">
+    <script src="scripts/auth.js" defer></script><script src="scripts/data.js" defer></script><script src="scripts/module-shell.js" defer></script><script src="scripts/editor.js" defer></script>
+  </head>
+  <body class="pagina-modulo modulo-editor">
+    <a class="pular-conteudo" href="#conteudo-modulo">Pular para o conteúdo</a>
+    <header class="cabecalho-modulo-site"><div class="container barra-modulo-site">
+      <a class="marca" href="dashboard.html" aria-label="Agência Elo Digital — painel"><img src="assets/logo.svg" alt="" width="42" height="42"><span>Elo <strong>Digital</strong></span></a>
+      <nav class="navegacao-modulos" aria-label="Módulos internos"><a href="dashboard.html">Painel</a><a href="crm.html">CRM</a><a href="copy.html">Copy</a><a class="ativo" href="editor.html" aria-current="page">Editor</a><span>Gestor <small>Em breve</small></span><span>Auditoria <small>Em breve</small></span></nav>
+      <div class="acoes-modulo"><span class="avatar-usuario" data-avatar>ED</span><span class="nome-usuario-modulo" data-nome-menu>Equipe Elo</span><button class="botao-sair" type="button" data-sair>Sair</button></div>
+    </div></header>
+    <main id="conteudo-modulo">
+      <section class="hero-modulo"><div class="container hero-modulo-conteudo"><div><p class="sobretitulo">Editor · Imagens e vídeos</p><h1>Transforme o briefing em uma composição pronta para visualizar.</h1><p>Planeje feed, story e reel, importe textos salvos no Copy e exporte uma prévia estática em PNG.</p></div><a class="botao botao-primario" href="#briefings">Ver peças salvas</a></div></section>
+      <section class="area-modulo container">
+        <div class="aviso-prototipo" role="note"><span aria-hidden="true">i</span><p><strong>Protótipo acadêmico.</strong> Use apenas empresas, contatos e imagens fictícios. Os registros ficam armazenados neste navegador e podem ser incluídos nos arquivos de exportação. Imagens enviadas permanecem somente nesta sessão.</p></div>
+        <div class="layout-editor">
+          <section class="painel-modulo painel-controles-editor" aria-labelledby="titulo-controles-editor">
+            <div class="cabecalho-painel-modulo"><div><p class="rotulo-formulario">Briefing visual</p><h2 id="titulo-controles-editor">Configurar peça</h2></div><button class="botao-texto" type="button" data-clear-editor>Limpar</button></div>
+            <form data-editor-form novalidate>
+              <input type="hidden" name="id">
+              <label class="campo-formulario"><span>Campanha compartilhada *</span><select name="campaignId" required></select><small data-error-for="campaignId"></small></label>
+              <div class="resumo-campanha" data-editor-campaign-summary><p>Selecione uma campanha para carregar empresa, produto e objetivo.</p></div>
+              <fieldset><legend>Formato</legend><div class="grade-formulario">
+                <label class="campo-formulario"><span>Família da peça</span><select name="family"><option>Feed</option><option>Story</option><option>Reel</option></select></label>
+                <label class="campo-formulario"><span>Variação</span><select name="variant"></select></label>
+                <label class="campo-formulario"><span>Tipo de mídia</span><select name="mediaType"></select></label>
+                <label class="campo-formulario" data-duration-field hidden><span>Duração planejada</span><select name="duration"></select></label>
+              </div><p class="ajuda-campo" data-format-info></p></fieldset>
+              <fieldset><legend>Conteúdo</legend>
+                <div class="importar-copy"><label class="campo-formulario"><span>Texto salvo na campanha</span><select data-copy-select><option value="">Selecione uma versão do Copy</option></select></label><button class="botao-secundario" type="button" data-import-copy>Importar do Copy</button></div>
+                <label class="campo-formulario"><span>Título *</span><input name="title" required maxlength="90"><small data-error-for="title"></small></label>
+                <label class="campo-formulario"><span>Texto de apoio</span><textarea name="supportText" rows="3" maxlength="280"></textarea></label>
+                <label class="campo-formulario"><span>Chamada para ação (CTA)</span><input name="cta" maxlength="60"></label>
+              </fieldset>
+              <fieldset><legend>Estilo</legend><div class="grade-formulario">
+                <label class="campo-formulario"><span>Cor de fundo</span><input type="color" name="bgColor" value="#7c3aed"></label>
+                <label class="campo-formulario"><span>Cor do texto</span><input type="color" name="textColor" value="#ffffff"></label>
+                <label class="campo-formulario"><span>Alinhamento</span><select name="alignment"><option value="left">Esquerda</option><option value="center" selected>Centro</option><option value="right">Direita</option></select></label>
+                <label class="campo-formulario"><span>Posição</span><select name="position"><option value="top">Topo</option><option value="center" selected>Centro</option><option value="bottom">Base</option></select></label>
+                <label class="campo-formulario"><span>Tamanho</span><select name="textSize"><option value="small">Pequeno</option><option value="medium" selected>Médio</option><option value="large">Grande</option></select></label>
+                <label class="campo-formulario"><span>Peso do título</span><select name="textWeight"><option value="600">Semibold</option><option value="800" selected>Extrabold</option></select></label>
+              </div>
+              <label class="campo-formulario"><span>Imagem da sessão</span><input type="file" accept="image/png,image/jpeg,image/webp" data-image-upload><small data-image-status>Opcional. A imagem não será salva no localStorage.</small></label></fieldset>
+              <p class="mensagem-formulario" data-editor-message role="alert"></p>
+              <div class="grupo-acoes-compactas"><button class="botao botao-primario" type="submit" data-save-briefing>Salvar briefing</button><button class="botao-secundario" type="button" data-download-png>Baixar prévia PNG</button></div>
+            </form>
+          </section>
+
+          <section class="painel-preview-editor" aria-labelledby="titulo-preview">
+            <div class="topo-preview"><div><p class="rotulo-formulario">Simulação</p><h2 id="titulo-preview">Prévia da peça</h2></div><span data-preview-dimensions>1080 × 1080 px</span></div>
+            <div class="palco-preview"><article class="preview-social formato-feed position-center align-center" data-preview>
+              <img data-preview-image alt="Imagem escolhida para a prévia" hidden>
+              <span class="ruido-preview" aria-hidden="true"></span><span class="orbita-preview orbita-a" aria-hidden="true"></span><span class="orbita-preview orbita-b" aria-hidden="true"></span>
+              <div class="conteudo-preview"><span class="marca-preview"><img src="assets/logo.svg" alt=""> Elo Digital</span><h3 data-preview-title>Seu título aparece aqui</h3><p data-preview-support>Adicione um texto de apoio para contextualizar a peça.</p><span class="cta-preview" data-preview-cta>Saiba mais</span></div>
+              <span class="selo-simulacao">Prévia · não publicada</span>
+            </article></div>
+            <p class="nota-preview">A exportação gera uma imagem estática. Briefings de vídeo não geram um vídeo final nesta etapa.</p>
+          </section>
+        </div>
+
+        <section id="briefings" class="painel-modulo" aria-labelledby="titulo-briefings">
+          <div class="cabecalho-painel-modulo"><div><p class="rotulo-formulario">Produção visual</p><h2 id="titulo-briefings">Peças e briefings salvos</h2></div><span class="contador-registros"><strong data-briefing-count>0</strong> peças</span></div>
+          <div class="grade-historico" data-briefing-history></div>
+          <div class="estado-vazio compacto" data-briefing-empty hidden><h3>Nenhuma peça criada ainda.</h3><p>Configure o primeiro briefing para visualizar e salvar a composição.</p></div>
+        </section>
+      </section>
+    </main>
+    <footer class="rodape-dashboard"><div class="container"><p>Agência Elo Digital · Projeto acadêmico de Marketing Digital</p><p>Editor demonstrativo · prévia estática</p></div></footer>
+  </body>
+</html>
