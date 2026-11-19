@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0f766e"><meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'">
+    <meta name="description" content="Gestor demonstrativo de campanhas da Agência Elo Digital."><title>Gestor | Agência Elo Digital</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css">
+    <script src="scripts/auth.js" defer></script><script src="scripts/data.js" defer></script><script src="scripts/module-shell.js" defer></script><script src="scripts/gestor.js" defer></script>
+  </head>
+  <body class="pagina-modulo modulo-gestor">
+    <a class="pular-conteudo" href="#conteudo-modulo">Pular para o conteúdo</a>
+    <header class="cabecalho-modulo-site"><div class="container barra-modulo-site">
+      <a class="marca" href="dashboard.html" aria-label="Agência Elo Digital — painel"><img src="assets/logo.svg" alt="" width="42" height="42"><span>Elo <strong>Digital</strong></span></a>
+      <nav class="navegacao-modulos" aria-label="Módulos internos"><a href="dashboard.html">Painel</a><a href="crm.html">CRM</a><a href="copy.html">Copy</a><a href="editor.html">Editor</a><a class="ativo" href="gestor.html" aria-current="page">Gestor</a><a href="auditoria.html">Auditoria</a></nav>
+      <div class="acoes-modulo"><span class="avatar-usuario" data-avatar>ED</span><span class="nome-usuario-modulo" data-nome-menu>Equipe Elo</span><button class="botao-sair" type="button" data-sair>Sair</button></div>
+    </div></header>
+    <main id="conteudo-modulo">
+      <section class="hero-modulo"><div class="container hero-modulo-conteudo"><div><p class="sobretitulo">Gestor · Planejamento e desempenho</p><h1>Campanhas organizadas do plano ao aprendizado.</h1><p>Complete o planejamento iniciado no CRM, conecte materiais, acompanhe metas e simule agendamento e publicação sem acessar redes sociais.</p></div><button class="botao botao-primario" type="button" data-open-plan>Planejar campanha</button></div></section>
+      <section class="area-modulo container">
+        <div class="aviso-prototipo" role="note"><span aria-hidden="true">i</span><p><strong>Simulação acadêmica.</strong> Orçamento, gastos e resultados são fictícios e preenchidos manualmente. Nenhum anúncio é veiculado, nenhuma cobrança é realizada e nenhuma credencial ou senha de rede social é solicitada.</p></div>
+        <div class="cartoes-indicadores indicadores-gestor">
+          <article><span>Campanhas ativas</span><strong data-active-count>0</strong><small>em andamento</small></article>
+          <article><span>Investimento planejado</span><strong data-budget-total>R$ 0</strong><small>orçamento simulado</small></article>
+          <article><span>Investimento realizado</span><strong data-spend-total>R$ 0</strong><small>preenchido pela equipe</small></article>
+          <article><span>Saldo do orçamento</span><strong data-budget-balance>R$ 0</strong><small>planejado menos realizado</small></article>
+          <article><span>Receita atribuída</span><strong data-revenue-total>R$ 0</strong><small>resultado informado</small></article>
+        </div>
+
+        <section class="painel-modulo" aria-labelledby="titulo-campanhas-gestor">
+          <div class="cabecalho-painel-modulo"><div><p class="rotulo-formulario">Planejamento compartilhado</p><h2 id="titulo-campanhas-gestor">Campanhas</h2></div><div class="grupo-acoes-compactas"><button class="botao-secundario" type="button" data-open-plan>Editar planejamento</button><button class="botao-secundario" type="button" data-export-manager-json>Exportar JSON</button><button class="botao-secundario" type="button" data-export-manager-csv>Exportar CSV</button></div></div>
+          <div class="filtros-modulo"><label><span>Pesquisar</span><input type="search" data-manager-search placeholder="Empresa ou campanha"></label><label><span>Status</span><select data-manager-status-filter><option value="">Todos</option></select></label><label><span>Modalidade</span><select data-manager-type-filter><option value="">Todas</option><option>Orgânica</option><option>Paga</option><option>Híbrida</option></select></label></div>
+          <div class="tabela-responsiva"><table class="tabela-crm tabela-gestor"><thead><tr><th>Campanha</th><th>Status</th><th>Canais</th><th>Período</th><th>Orçamento</th><th>Auditoria</th><th><span class="visually-hidden">Ações</span></th></tr></thead><tbody data-manager-list></tbody></table></div>
+          <div class="estado-vazio" data-manager-empty hidden><span aria-hidden="true">↗</span><h3>Nenhuma campanha disponível.</h3><p>Crie uma campanha no CRM para completar o planejamento no Gestor.</p><a class="botao botao-primario" href="crm.html">Ir para o CRM</a></div>
+        </section>
+
+        <section class="painel-modulo" aria-labelledby="titulo-desempenho"><div class="cabecalho-painel-modulo"><div><p class="rotulo-formulario">Metas e resultados</p><h2 id="titulo-desempenho">Desempenho da campanha</h2></div><select class="seletor-campanha-painel" data-performance-campaign aria-label="Campanha para visualizar desempenho"></select></div><div data-performance-panel></div></section>
+
+        <section class="painel-modulo" aria-labelledby="titulo-agenda"><div class="cabecalho-painel-modulo"><div><p class="rotulo-formulario">Calendário editorial</p><h2 id="titulo-agenda">Agenda simplificada</h2></div><button class="botao-secundario" type="button" data-open-schedule>Adicionar conteúdo</button></div><div class="agenda-lista" data-schedule-list></div><div class="estado-vazio compacto" data-schedule-empty hidden><h3>Nenhum conteúdo agendado.</h3><p>Adicione uma data, canal e material para organizar a execução simulada.</p><button class="botao botao-primario" type="button" data-open-schedule>Adicionar conteúdo</button></div></section>
+      </section>
+    </main>
+
+    <dialog class="dialogo-modulo" data-plan-dialog aria-labelledby="plan-title"><form method="dialog" data-plan-form novalidate>
+      <div class="topo-dialogo"><div><p class="rotulo-formulario">Gestor</p><h2 id="plan-title">Planejamento da campanha</h2></div><button class="fechar-dialogo" type="button" data-close-dialog aria-label="Fechar">×</button></div>
+      <label class="campo-formulario"><span>Campanha do CRM *</span><select name="campaignId" required></select><small data-error-for="campaignId"></small></label>
+      <fieldset><legend>Estratégia</legend><div class="grade-formulario">
+        <label class="campo-formulario"><span>Modalidade *</span><select name="campaignType"><option>Orgânica</option><option>Paga</option><option>Híbrida</option></select></label>
+        <label class="campo-formulario"><span>Status *</span><select name="managerStatus"></select></label>
+        <label class="campo-formulario"><span>Data inicial</span><input type="date" name="startDate"></label><label class="campo-formulario"><span>Data final</span><input type="date" name="endDate"></label>
+        <label class="campo-formulario"><span>Responsável</span><input name="responsible" maxlength="100"></label><label class="campo-formulario"><span>Orçamento planejado (R$)</span><input type="number" name="budgetPlanned" min="0" step="0.01"></label>
+        <label class="campo-formulario campo-largo"><span>Estratégia</span><textarea name="strategy" rows="3" maxlength="500"></textarea></label><label class="campo-formulario campo-largo"><span>Chamada para ação</span><input name="callToAction" maxlength="120"></label>
+      </div></fieldset>
+      <fieldset><legend>Canais e contas simuladas</legend><div class="grade-checkboxes" data-channel-checkboxes></div><p class="ajuda-campo">Informe apenas nomes de perfis ou contas fictícias. Nunca digite senhas, tokens ou credenciais reais.</p><div class="grade-formulario contas-canais" data-account-fields></div></fieldset>
+      <fieldset><legend>Materiais vinculados</legend><div class="grade-materiais"><div><h3>Copies da campanha</h3><div data-copy-options></div></div><div><h3>Peças da campanha</h3><div data-briefing-options></div></div></div></fieldset>
+      <fieldset><legend>Metas</legend><div class="grade-metricas" data-goal-fields></div></fieldset>
+      <fieldset><legend>Resultados informados</legend><div class="grade-metricas" data-result-fields></div><p class="ajuda-campo">Os indicadores calculados exibem “Sem dados suficientes” quando o divisor for zero.</p></fieldset>
+      <fieldset><legend>Condições especiais da campanha</legend><div class="grade-checkboxes"><label><input type="checkbox" name="targetMinors"> Público inclui crianças ou adolescentes</label><label><input type="checkbox" name="repeatedContact"> Prevê contato reiterado com pessoas</label></div><label class="campo-formulario"><span>Observações internas</span><textarea name="managerNotes" rows="3" maxlength="400"></textarea></label></fieldset>
+      <p class="mensagem-formulario" data-plan-message role="alert"></p><div class="rodape-dialogo"><button class="botao-secundario" type="button" data-close-dialog>Cancelar</button><button class="botao botao-primario" type="submit">Salvar planejamento</button></div>
+    </form></dialog>
+
+    <dialog class="dialogo-modulo dialogo-compacto" data-schedule-dialog aria-labelledby="schedule-title"><form method="dialog" data-schedule-form novalidate>
+      <div class="topo-dialogo"><div><p class="rotulo-formulario">Agenda</p><h2 id="schedule-title">Conteúdo programado</h2></div><button class="fechar-dialogo" type="button" data-close-dialog aria-label="Fechar">×</button></div><input type="hidden" name="id">
+      <div class="grade-formulario"><label class="campo-formulario campo-largo"><span>Campanha *</span><select name="campaignId" required></select></label><label class="campo-formulario"><span>Data *</span><input type="date" name="date" required></label><label class="campo-formulario"><span>Horário *</span><input type="time" name="time" required></label><label class="campo-formulario"><span>Canal *</span><select name="channel" required></select></label><label class="campo-formulario"><span>Formato *</span><input name="format" required maxlength="80" placeholder="Ex.: Story"></label><label class="campo-formulario campo-largo"><span>Copy vinculada</span><select name="copyId"></select></label><label class="campo-formulario campo-largo"><span>Peça vinculada</span><select name="briefingId"></select></label><label class="campo-formulario campo-largo"><span>Observações</span><textarea name="notes" rows="3" maxlength="300"></textarea></label></div>
+      <p class="mensagem-formulario" data-schedule-message role="alert"></p><div class="rodape-dialogo"><button class="botao-secundario" type="button" data-close-dialog>Cancelar</button><button class="botao botao-primario" type="submit">Salvar na agenda</button></div>
+    </form></dialog>
+
+    <footer class="rodape-dashboard"><div class="container"><p>Agência Elo Digital · Projeto acadêmico de Marketing Digital</p><p><a href="privacidade.html">Privacidade e uso do protótipo</a></p></div></footer>
+  </body>
+</html>

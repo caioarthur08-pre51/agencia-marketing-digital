@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#db2777"><meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'">
+    <meta name="description" content="Auditoria demonstrativa de campanhas da Agência Elo Digital."><title>Auditoria | Agência Elo Digital</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css">
+    <script src="scripts/auth.js" defer></script><script src="scripts/data.js" defer></script><script src="scripts/module-shell.js" defer></script><script src="scripts/auditoria.js" defer></script>
+  </head>
+  <body class="pagina-modulo modulo-auditoria">
+    <a class="pular-conteudo" href="#conteudo-modulo">Pular para o conteúdo</a>
+    <header class="cabecalho-modulo-site"><div class="container barra-modulo-site">
+      <a class="marca" href="dashboard.html" aria-label="Agência Elo Digital — painel"><img src="assets/logo.svg" alt="" width="42" height="42"><span>Elo <strong>Digital</strong></span></a>
+      <nav class="navegacao-modulos" aria-label="Módulos internos"><a href="dashboard.html">Painel</a><a href="crm.html">CRM</a><a href="copy.html">Copy</a><a href="editor.html">Editor</a><a href="gestor.html">Gestor</a><a class="ativo" href="auditoria.html" aria-current="page">Auditoria</a></nav>
+      <div class="acoes-modulo"><span class="avatar-usuario" data-avatar>ED</span><span class="nome-usuario-modulo" data-nome-menu>Equipe Elo</span><button class="botao-sair" type="button" data-sair>Sair</button></div>
+    </div></header>
+    <main id="conteudo-modulo">
+      <section class="hero-modulo"><div class="container hero-modulo-conteudo"><div><p class="sobretitulo">Auditoria · Revisão e conformidade</p><h1>Revisar antes de publicar também faz parte da estratégia.</h1><p>Analise textos, peças, oferta e uso de dados, registre alertas e emita um parecer interno que controla a publicação simulada.</p></div><a class="botao botao-primario" href="#nova-revisao">Iniciar revisão</a></div></section>
+      <section class="area-modulo container">
+        <div class="aviso-prototipo" role="note"><span aria-hidden="true">i</span><p><strong>Parecer acadêmico.</strong> Esta revisão demonstrativa registra verificações internas e não substitui análise jurídica profissional. Use apenas dados e materiais fictícios.</p></div>
+        <div class="cartoes-indicadores indicadores-auditoria"><article><span>Campanhas</span><strong data-audit-campaigns>0</strong><small>para revisar</small></article><article><span>Pendentes</span><strong data-audit-pending>0</strong><small>sem liberação</small></article><article><span>Alertas bloqueadores</span><strong data-blocking-alerts>0</strong><small>no parecer mais recente</small></article><article><span>Revisões</span><strong data-audit-count>0</strong><small>histórico imutável</small></article></div>
+
+        <section id="nova-revisao" class="painel-modulo painel-auditoria" aria-labelledby="titulo-nova-revisao">
+          <div class="cabecalho-painel-modulo"><div><p class="rotulo-formulario">Análise preventiva</p><h2 id="titulo-nova-revisao">Nova revisão</h2></div><select class="seletor-campanha-painel" data-audit-campaign aria-label="Campanha para auditar"></select></div>
+          <div class="grade-contexto-auditoria"><article data-audit-context></article><div data-audit-materials></div></div>
+          <div class="cabecalho-subsecao"><div><h3>Verificação automática</h3><p>Regras simples procuram pendências; a equipe deve confirmar o contexto.</p></div><button class="botao-secundario" type="button" data-run-scan>Executar novamente</button></div>
+          <div class="lista-alertas" data-auto-alerts></div>
+
+          <form data-audit-form novalidate>
+            <fieldset><legend>Checklist da equipe</legend><div class="checklist-auditoria" data-checklist>
+              <div data-check-item="privacy"><span><strong>Privacidade e LGPD</strong><small>Finalidade, necessidade, base aplicável e dados fictícios.</small></span><select name="privacy"></select></div>
+              <div data-check-item="advertising"><span><strong>Clareza da publicidade e CDC</strong><small>Oferta identificável, verdadeira e com condições essenciais.</small></span><select name="advertising"></select></div>
+              <div data-check-item="copyright"><span><strong>Direitos autorais</strong><small>Origem e licença de textos, imagens, músicas e vídeos.</small></span><select name="copyright"></select></div>
+              <div data-check-item="imageRights"><span><strong>Uso de imagem e marcas</strong><small>Autorização para pessoas, marcas e logotipos identificáveis.</small></span><select name="imageRights"></select></div>
+              <div data-check-item="accessibility"><span><strong>Acessibilidade</strong><small>Contraste, legibilidade e legendas quando aplicáveis.</small></span><select name="accessibility"></select></div>
+              <div data-check-item="channelRules"><span><strong>Regras dos canais</strong><small>Formato e comunicação adequados aos canais selecionados.</small></span><select name="channelRules"></select></div>
+              <div data-check-item="children"><span><strong>Proteção de crianças e adolescentes</strong><small>ECA Digital, quando o público incluir menores.</small></span><select name="children"></select></div>
+              <div data-check-item="repeatedContact"><span><strong>Contato reiterado e privacidade</strong><small>Aplicável quando houver contato repetitivo ou potencialmente invasivo.</small></span><select name="repeatedContact"></select></div>
+            </div><label class="campo-formulario"><span>Observações do checklist</span><textarea name="checklistNotes" rows="3" maxlength="600"></textarea></label></fieldset>
+
+            <fieldset><legend>Alerta adicional opcional</legend><div class="grade-formulario"><label class="campo-formulario"><span>Gravidade</span><select name="manualSeverity"><option value="">Sem alerta adicional</option><option>Informativo</option><option>Atenção</option><option>Alto risco</option><option>Bloqueador</option></select></label><label class="campo-formulario"><span>Material relacionado</span><select name="manualSource"><option value="">Campanha inteira</option></select></label><label class="campo-formulario campo-largo"><span>Título do alerta</span><input name="manualAlertTitle" maxlength="120"></label><label class="campo-formulario campo-largo"><span>Detalhamento e ajuste esperado</span><textarea name="manualAlertDetail" rows="3" maxlength="500"></textarea></label></div></fieldset>
+
+            <fieldset><legend>Parecer técnico</legend><div class="grade-formulario"><label class="campo-formulario"><span>Resultado *</span><select name="result"><option>Favorável</option><option>Favorável com ajustes</option><option selected>Desfavorável</option></select></label><label class="campo-formulario"><span>Nível geral de risco *</span><select name="riskLevel"><option>Informativo</option><option>Atenção</option><option>Alto risco</option><option selected>Bloqueador</option></select></label><label class="campo-formulario campo-largo"><span>Resumo da análise *</span><textarea name="summary" rows="3" maxlength="600" required></textarea></label><label class="campo-formulario campo-largo"><span>Resumo da peça e da oferta</span><textarea name="offerSummary" rows="2" maxlength="400"></textarea></label><label class="campo-formulario campo-largo"><span>Ajustes recomendados *</span><textarea name="recommendations" rows="3" maxlength="600" required></textarea></label></div></fieldset>
+
+            <fieldset><legend>Ciência da revisão</legend><p class="texto-aceite">Confirmo que li o parecer e estou ciente das recomendações e dos ajustes indicados para esta campanha. Esta confirmação registra minha ciência da revisão interna.</p><label class="campo-formulario"><span>Justificativa ou observação do aceite *</span><textarea name="acceptanceJustification" rows="2" maxlength="350" required></textarea></label><label class="checkbox-aceite"><input type="checkbox" name="acceptance" required> Confirmar ciência antes de registrar o parecer imutável.</label></fieldset>
+            <p class="mensagem-formulario" data-audit-message role="alert"></p><div class="acoes-parecer"><button class="botao botao-primario" type="submit">Registrar parecer</button><button class="botao-secundario" type="button" data-print-current>Imprimir parecer mais recente</button></div>
+          </form>
+        </section>
+
+        <section class="painel-modulo" aria-labelledby="titulo-historico-auditoria"><div class="cabecalho-painel-modulo"><div><p class="rotulo-formulario">Registro permanente</p><h2 id="titulo-historico-auditoria">Histórico de revisões</h2></div><span class="contador-registros"><strong data-audit-history-count>0</strong> pareceres</span></div><div class="linha-tempo-auditoria" data-audit-history></div><div class="estado-vazio compacto" data-audit-empty hidden><h3>Nenhuma revisão registrada.</h3><p>Execute a análise e registre o primeiro parecer da campanha.</p></div></section>
+      </section>
+
+      <section class="relatorio-impressao" data-print-report aria-label="Relatório de auditoria para impressão"></section>
+    </main>
+    <footer class="rodape-dashboard"><div class="container"><p>Agência Elo Digital · Projeto acadêmico de Marketing Digital</p><p><a href="privacidade.html">Privacidade e uso do protótipo</a></p></div></footer>
+  </body>
+</html>

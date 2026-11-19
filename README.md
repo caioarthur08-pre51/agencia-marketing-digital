@@ -1,13 +1,13 @@
 # Agência Elo Digital
 
 Protótipo acadêmico de uma agência fictícia de marketing digital voltada a pequenos
-negócios e profissionais autônomos. A versão atual implementa a Home pública,
-cadastro e autenticação demonstrativos, painel interno e os módulos integrados de
-CRM, Copy e Editor. Gestor e Auditoria permanecem identificados como “Em breve”.
+negócios e profissionais autônomos. O sistema demonstra um fluxo integrado entre
+CRM, Copy, Editor, Gestor e Auditoria, além da Home pública, cadastro, login local e
+painel interno. Tudo funciona em HTML, CSS e JavaScript puros no GitHub Pages.
 
 ## Acesso publicado
 
-`https://caioarthur08-pre51.github.io/agencia-marketing-digital/`
+<https://caioarthur08-pre51.github.io/agencia-marketing-digital/>
 
 ## Credenciais de demonstração
 
@@ -17,87 +17,152 @@ CRM, Copy e Editor. Gestor e Auditoria permanecem identificados como “Em breve
 As credenciais são públicas porque este é um ambiente acadêmico demonstrativo. O
 painel simula o acesso de um integrante, mas não oferece proteção para contas reais.
 
-## Funcionalidades desta etapa
+## Funcionalidades
 
-- landing page responsiva com catálogo dos cinco serviços;
+- landing page responsiva com os cinco módulos disponíveis;
 - identidade visual própria da Agência Elo Digital;
 - cadastro local com aviso para uso exclusivo de dados fictícios;
-- senha derivada com Web Crypto/PBKDF2, sem armazenamento da senha em texto puro;
-- login, validação de campos e mensagens de erro;
-- opção de mostrar ou ocultar senha;
-- sessão temporária ou persistente conforme a opção “Lembrar-me”;
-- recuperação de senha com envio de e-mail simulado e redefinição local;
-- painel interno com contadores reais e encerramento de sessão;
+- senha derivada com Web Crypto/PBKDF2, sem armazenamento em texto puro;
+- login, recuperação simulada, “Lembrar-me”, validação e encerramento de sessão;
+- painel com contadores reais de campanhas, investimento, copies, peças, auditorias e alertas;
 - CRM com cadastro, consulta, edição e exclusão de empresas e campanhas;
-- pesquisa, filtro por status e ordenação no CRM;
-- pontuação demonstrativa de potencial para priorização de contatos;
-- backup completo em JSON, importação de JSON e exportação do CRM em CSV;
-- Copy com modelos locais para legenda, story, anúncio, WhatsApp e e-mail;
-- validações para prova social, urgência e escassez, sem inventar evidências;
-- geração de prompt para uma ferramenta externa de IA, sem uso de API;
-- histórico de textos com edição, duplicação, exclusão e exportação TXT;
-- Editor com formatos de feed, story, reel e capa de reel;
-- personalização de conteúdo, cores, alinhamento, posição, tamanho e peso;
-- upload de imagem somente para a sessão e exportação da prévia em PNG;
-- histórico de briefings com edição, duplicação e exclusão;
-- integração dos três módulos por um mesmo identificador de campanha;
-- dados demonstrativos vinculados da empresa fictícia Café do Bairro;
-- acessibilidade por teclado, foco visível e respeito à redução de movimento.
+- pesquisa, filtro, ordenação, indicador demonstrativo de potencial e backup JSON/CSV;
+- Copy com modelos locais, regras contra alegações sem evidência, prompt externo e histórico TXT;
+- Editor com briefing, formatos para redes sociais, personalização, imagem temporária e PNG;
+- Gestor com planejamento, agenda, metas, resultados e publicação simulada;
+- Auditoria com verificações automáticas, checklist, alertas, parecer imutável e impressão;
+- página de privacidade e resumo de uso de dados nos pontos de entrada do sistema;
+- acessibilidade por teclado, foco visível, contraste e respeito à redução de movimento.
 
-## Fluxo entre CRM, Copy e Editor
+## Fluxo integrado
 
-1. No **CRM**, cadastre uma empresa e crie uma campanha vinculada a ela. Empresa,
-   produto ou serviço e objetivo formam o contexto compartilhado.
-2. No **Copy**, selecione a campanha. O sistema recupera o contexto, gera uma
-   sugestão local editável e prepara um prompt para uma ferramenta externa.
-3. No **Editor**, selecione a mesma campanha e, se desejar, importe uma versão
-   salva no Copy. O briefing visual pode ser salvo e a prévia exportada em PNG.
+1. No **CRM**, cadastre a empresa e a campanha. Empresa, produto ou serviço,
+   objetivo e identificador da campanha formam o contexto compartilhado.
+2. No **Copy**, use esse contexto para gerar, editar e salvar uma sugestão de texto
+   ou preparar um prompt para uma ferramenta externa de IA.
+3. No **Editor**, importe uma copy da campanha, monte o briefing visual e salve a
+   composição. A prévia estática pode ser exportada em PNG.
+4. No **Gestor**, complete o planejamento, selecione canais e materiais, organize a
+   agenda e compare metas com resultados simulados.
+5. Na **Auditoria**, revise copies, peças e condições da campanha. O parecer mais
+   recente decide se agendamento, ativação e publicação simulada ficam liberados.
 
-Todos os registros ficam na chave `eloDigital.dados.v2` do `localStorage`. O botão
-“Restaurar demonstração” inclui novamente apenas os exemplos ausentes e preserva
-os registros criados pela equipe.
+Todos os módulos usam o mesmo identificador de campanha. Os registros permanecem
+na chave `eloDigital.dados.v2` do `localStorage`; o formato interno atual é a versão
+3. A chave foi mantida para migrar automaticamente os dados da etapa anterior, sem
+apagar empresas, campanhas, copies ou briefings existentes.
+
+## Gestor de campanhas
+
+Cada campanha pode ser **Orgânica**, **Paga** ou **Híbrida** e percorre os status:
+
+`Rascunho → Planejada → Em produção → Agendada → Em andamento → Pausada → Concluída`
+
+Os canais disponíveis são Instagram, Facebook, WhatsApp, TikTok, YouTube e Google
+Ads. Os campos de contas conectadas são apenas demonstrativos e nunca solicitam
+senha, token ou credencial real.
+
+O módulo inclui:
+
+- tabela responsiva de campanhas e cartões de resumo;
+- orçamento planejado, investimento realizado, receita e saldo de acompanhamento;
+- copies e briefings vinculados à mesma campanha;
+- agenda simplificada com data, horário, canal, formato e materiais relacionados;
+- metas e resultados de alcance, impressões, cliques, contatos, conversões,
+  investimento e receita;
+- exportação dos dados do Gestor em JSON e CSV;
+- botões “Agendar” e “Ativar/Publicar” claramente identificados como simulação.
+
+### Indicadores calculados
+
+- **CTR:** cliques ÷ impressões × 100;
+- **CPC:** investimento ÷ cliques;
+- **Custo por contato:** investimento ÷ contatos;
+- **Taxa de conversão:** conversões ÷ cliques × 100;
+- **ROI:** (receita − investimento) ÷ investimento × 100.
+
+Quando o divisor é zero, o sistema mostra “Sem dados suficientes” em vez de gerar
+um valor inválido.
+
+## Auditoria e bloqueio
+
+O parecer fica vinculado à campanha inteira, enquanto cada alerta pode apontar para
+uma copy ou peça específica. Os resultados disponíveis são **Favorável**,
+**Favorável com ajustes** e **Desfavorável**. Os níveis de alerta são
+**Informativo**, **Atenção**, **Alto risco** e **Bloqueador**.
+
+Regras locais verificam, entre outros pontos, urgência sem prazo, escassez sem
+quantidade, prova social sem evidência, alegação exagerada, ausência de CTA e imagem
+sem origem registrada. O checklist da equipe cobre privacidade/LGPD, clareza da
+publicidade/CDC, direitos autorais, uso de imagem, acessibilidade e regras dos
+canais. A proteção de crianças e adolescentes aparece apenas quando a campanha
+marca público menor de idade; a verificação sobre contato reiterado aparece apenas
+quando a estratégia indica esse comportamento.
+
+Um parecer **Desfavorável** ou qualquer alerta **Bloqueador** impede:
+
+- mudança de status para “Agendada” ou “Em andamento”;
+- inclusão de conteúdo na agenda;
+- ativação ou publicação simulada.
+
+Pareceres concluídos são imutáveis. Cada mudança exige uma nova revisão, preservando
+responsável, data, decisão, justificativa, checklist, alertas e aceite no histórico.
+O relatório pode ser impresso ou salvo em PDF pelo próprio navegador.
+
+## Dados demonstrativos
+
+O botão “Restaurar demonstração” recompõe apenas os exemplos ausentes e preserva os
+registros da equipe. A demonstração contém:
+
+- empresa fictícia **Café do Bairro** e campanha de um combo de café da manhã;
+- uma copy e uma peça adequadas;
+- uma segunda copy com “Só hoje!” sem prazo definido;
+- uma segunda peça com imagem sem origem ou licença registrada;
+- planejamento, metas, resultados e parecer inicial desfavorável.
+
+Esse segundo conjunto existe para tornar visível o fluxo de alerta e bloqueio da
+Auditoria sem alterar os exemplos adequados.
 
 ## Importação e exportação
 
-- **Exportar JSON:** gera um backup completo de empresas, campanhas, copies e
-  briefings. Contas e sessões de login não fazem parte do arquivo.
-- **Importar JSON:** substitui os dados dos três módulos pelos dados do backup,
-  após uma confirmação explícita.
-- **Exportar CSV:** gera uma tabela do CRM com codificação UTF-8 e separador por
-  ponto e vírgula, adequada para abertura no Excel.
-- **TXT:** cada versão salva no Copy pode ser baixada como texto.
-- **PNG:** a composição visível no Editor é renderizada como uma imagem estática.
-  Um briefing de vídeo não gera o vídeo final.
+- **Backup JSON do CRM:** empresas, campanhas, copies, briefings, agenda e auditorias;
+- **Importar JSON:** aceita o backup completo e normaliza automaticamente dados de versões anteriores;
+- **CSV do CRM:** tabela das empresas e campanhas em UTF-8 para planilhas;
+- **JSON/CSV do Gestor:** planejamento, agenda, valores e indicadores;
+- **TXT do Copy:** versão textual salva;
+- **PNG do Editor:** prévia estática da composição;
+- **Impressão da Auditoria:** relatório preparado para impressão ou “Salvar como PDF”.
 
-## Regra da pontuação de potencial
+Contas de login e sessões não entram nos arquivos exportados.
 
-A pontuação é um indicador demonstrativo em escala de 0 a 100 pontos, e não uma
-probabilidade de venda.
+## Regra da pontuação de potencial do CRM
+
+A pontuação é um indicador demonstrativo de 0 a 100, e não uma probabilidade de venda.
 
 - base por status: Novo contato = 25, Em análise = 45 e Proposta = 70;
 - último contato em até 7 dias: +15 pontos;
 - entre 8 e 30 dias: +5 pontos;
-- entre 31 e 60 dias: -10 pontos;
-- acima de 60 dias: -20 pontos;
+- entre 31 e 60 dias: −10 pontos;
+- acima de 60 dias: −20 pontos;
 - o resultado é limitado ao intervalo de 0 a 100;
 - Cliente aparece como “Convertido” e Inativo como “Sem priorização”.
 
 ## Privacidade e limites
 
-- não existe servidor, banco de dados ou autenticação real;
-- nenhuma informação é transmitida pela rede;
-- contas criadas ficam no `localStorage` do navegador;
-- sem “Lembrar-me”, a sessão fica no `sessionStorage` e termina ao fechar a aba;
+- não existe servidor, banco de dados, autenticação real ou conexão com redes sociais;
+- registros do sistema ficam no `localStorage` deste navegador;
+- sem “Lembrar-me”, a sessão fica no `sessionStorage`;
 - com “Lembrar-me”, a sessão e o e-mail ficam no `localStorage`;
-- a senha é representada por hash derivado e salt, mas o ambiente continua sendo apenas demonstrativo;
-- limpar os dados do navegador remove as contas locais.
-- imagens escolhidas no Editor não são persistidas; ao reabrir um briefing, a
-  interface solicita que a imagem seja selecionada novamente;
-- a importação de backup pode substituir os registros existentes dos módulos.
+- imagens escolhidas no Editor ficam somente na sessão e não entram no `localStorage`;
+- exportações podem conter os dados fictícios cadastrados pela equipe;
+- limpar os dados do navegador remove contas e registros locais;
+- métricas, publicação, anúncios, contas conectadas e parecer jurídico são simulações.
+
+Consulte também [`privacidade.html`](privacidade.html).
 
 ## Execução local
 
-Na pasta do projeto, inicie um servidor HTTP estático. Exemplo:
+Na pasta do projeto, inicie um servidor HTTP estático:
 
 ```powershell
 python -m http.server 4173
@@ -109,21 +174,33 @@ publicação é necessário para o Web Crypto usado na derivação das senhas.
 ## Tecnologia
 
 HTML, CSS e JavaScript puros, sem framework, dependências de execução ou serviço
-externo. As fontes Manrope e Inter estão incluídas localmente sob a Open Font License.
+externo. As fontes Manrope e Inter são servidas localmente sob a Open Font License.
 
 ## Validação manual
 
-- [x] Login com `admin@agencia.com` / `123456` abre o painel;
-- [x] painel exibe CRM, Copy e Editor como disponíveis e atualiza contadores;
-- [x] CRM lista a demonstração e calcula 85 pontos para Proposta com contato recente;
-- [x] formulário do CRM abre, fecha e apresenta os campos obrigatórios;
-- [x] Copy recupera o contexto da campanha selecionada;
-- [x] urgência sem prazo e prova social sem evidência impedem a geração;
-- [x] Copy gera texto editável e prompt local sem chamadas externas;
-- [x] Editor importa uma versão do Copy da mesma campanha;
-- [x] troca entre Feed, Story, Reel e Capa de reel atualiza dimensões e duração;
-- [x] layout do CRM foi verificado em viewport móvel de 390 × 844 px;
-- [x] scripts verificados com `node --check` e sem novos erros no console.
+- [x] login de demonstração abre o painel e todos os cinco módulos;
+- [x] migração preserva os dados das etapas anteriores e cria apenas campos ausentes;
+- [x] CRM, Copy e Editor continuam compartilhando a mesma campanha;
+- [x] Gestor apresenta os sete status, seis canais, agenda e indicadores calculados;
+- [x] campanha sem parecer válido não pode ser agendada, ativada ou publicada;
+- [x] Auditoria identifica “Só hoje!” sem prazo como alerta bloqueador;
+- [x] Auditoria identifica imagem sem origem registrada como alto risco;
+- [x] regras sobre público menor e contato reiterado aparecem somente quando aplicáveis;
+- [x] histórico exibe os pareceres como revisões imutáveis;
+- [x] página de privacidade abre pelos links do sistema;
+- [x] Gestor e Auditoria foram verificados em viewport móvel de 390 × 844 px;
+- [x] scripts verificados com `node --check` e sem erros no console do navegador.
+
+## Referências normativas e técnicas
+
+- [Lei Geral de Proteção de Dados Pessoais — Lei nº 13.709/2018](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm)
+- [Código de Defesa do Consumidor — Lei nº 8.078/1990](https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm)
+- [Lei de Direitos Autorais — Lei nº 9.610/1998](https://www.planalto.gov.br/ccivil_03/leis/l9610.htm)
+- [ECA Digital — Lei nº 15.211/2025](https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15211.htm)
+- [Crime de perseguição — Lei nº 14.132/2021](https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14132.htm)
+
+As verificações legais são orientações acadêmicas e não substituem consultoria
+jurídica nem análise do caso concreto.
 
 ## Equipe
 

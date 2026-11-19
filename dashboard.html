@@ -43,7 +43,7 @@
           <div>
             <p class="sobretitulo">Painel interno · protótipo</p>
             <h1>Olá, <span data-primeiro-nome>integrante</span>!</h1>
-            <p>Este é o ponto de conexão da equipe. CRM, Copy e Editor já estão disponíveis e compartilham os dados de cada campanha.</p>
+            <p>Explore o fluxo completo do protótipo: do cadastro no CRM ao planejamento no Gestor e ao parecer final da Auditoria.</p>
           </div>
           <div class="resumo-ambiente" role="note">
             <span class="pulso-status" aria-hidden="true"></span>
@@ -52,6 +52,15 @@
         </div>
       </section>
 
+      <section class="resumo-final-dashboard" aria-label="Indicadores gerais do sistema"><div class="container grade-resumo-final">
+        <article><span>Campanhas ativas</span><strong data-summary-active>0</strong></article>
+        <article><span>Investimento simulado</span><strong data-summary-investment>R$ 0</strong></article>
+        <article><span>Copies salvas</span><strong data-summary-copies>0</strong></article>
+        <article><span>Peças criadas</span><strong data-summary-briefings>0</strong></article>
+        <article><span>Auditorias pendentes</span><strong data-summary-pending>0</strong></article>
+        <article><span>Alertas atuais</span><strong data-summary-alerts>0</strong></article>
+      </div></section>
+
       <section class="secao-painel" aria-labelledby="titulo-modulos-painel">
         <div class="container">
           <div class="cabecalho-painel">
@@ -59,7 +68,7 @@
               <p class="rotulo-formulario">Visão geral</p>
               <h2 id="titulo-modulos-painel">Módulos da agência</h2>
             </div>
-            <span class="contador-modulos">5 áreas planejadas</span>
+            <span class="contador-modulos">5 áreas disponíveis</span>
           </div>
 
           <div class="grade-modulos-painel">
@@ -108,35 +117,35 @@
               <span class="barra-progresso"><span></span></span>
             </a>
 
-            <article class="cartao-modulo-painel modulo-painel-gestor">
+            <a class="cartao-modulo-painel modulo-painel-gestor modulo-disponivel" href="gestor.html">
               <div class="cabecalho-modulo">
                 <span class="icone-painel" aria-hidden="true">↗</span>
-                <span class="selo-em-breve">Em breve</span>
+                <span class="selo-disponivel">Disponível</span>
               </div>
               <h3>Gestor</h3>
               <p>Gestão de campanhas</p>
               <ul>
                 <li>Campanhas orgânicas</li>
                 <li>Mídia paga</li>
-                <li>Redes e anúncios</li>
+                <li><strong data-count-campaigns>0</strong> campanhas integradas</li>
               </ul>
               <span class="barra-progresso"><span></span></span>
-            </article>
+            </a>
 
-            <article class="cartao-modulo-painel modulo-painel-auditoria">
+            <a class="cartao-modulo-painel modulo-painel-auditoria modulo-disponivel" href="auditoria.html">
               <div class="cabecalho-modulo">
                 <span class="icone-painel" aria-hidden="true">✓</span>
-                <span class="selo-em-breve">Em breve</span>
+                <span class="selo-disponivel">Disponível</span>
               </div>
               <h3>Auditoria</h3>
               <p>Revisão e conformidade</p>
               <ul>
                 <li>Diretrizes e LGPD</li>
                 <li>Alertas e pareceres</li>
-                <li>Registro de aceites</li>
+                <li><strong data-count-audits>0</strong> pareceres registrados</li>
               </ul>
               <span class="barra-progresso"><span></span></span>
-            </article>
+            </a>
           </div>
         </div>
       </section>
@@ -145,10 +154,10 @@
         <div class="container grade-informacao-dashboard">
           <div>
             <p class="rotulo-formulario">Sobre esta versão</p>
-              <h2 id="titulo-sobre-prototipo">Três módulos já trabalham em conjunto.</h2>
+              <h2 id="titulo-sobre-prototipo">O ecossistema completo está conectado.</h2>
             <p>
-              O CRM organiza empresas e campanhas, o Copy produz textos e o Editor monta
-              briefings visuais. Gestor e Auditoria permanecem planejados para as próximas etapas.
+              Cadastre uma empresa e sua campanha no CRM, crie textos no Copy, visualize as peças no Editor,
+              acompanhe a campanha no Gestor e registre a revisão na Auditoria.
             </p>
           </div>
           <dl class="lista-tecnica-dashboard">
@@ -163,7 +172,7 @@
     <footer class="rodape-dashboard">
       <div class="container">
         <p>Agência Elo Digital · Projeto acadêmico de Marketing Digital</p>
-        <p data-data-painel></p>
+        <p><a href="privacidade.html">Privacidade e uso do protótipo</a> · <span data-data-painel></span></p>
       </div>
     </footer>
   </body>

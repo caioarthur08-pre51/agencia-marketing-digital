@@ -15,6 +15,16 @@
     document.querySelector("[data-count-companies]").textContent = dados.companies.length;
     document.querySelector("[data-count-copies]").textContent = dados.copies.length;
     document.querySelector("[data-count-briefings]").textContent = dados.briefings.length;
+    document.querySelector("[data-count-campaigns]").textContent = dados.campaigns.length;
+    document.querySelector("[data-count-audits]").textContent = dados.audits.length;
+    const moeda = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+    const auditoriasAtuais = dados.campaigns.map((campanha) => dataStore.latestAudit(dados, campanha.id)).filter(Boolean);
+    document.querySelector("[data-summary-active]").textContent = dados.campaigns.filter((campanha) => campanha.managerStatus === "Em andamento").length;
+    document.querySelector("[data-summary-investment]").textContent = moeda.format(dados.campaigns.reduce((total, campanha) => total + Number(campanha.results?.investment || 0), 0));
+    document.querySelector("[data-summary-copies]").textContent = dados.copies.length;
+    document.querySelector("[data-summary-briefings]").textContent = dados.briefings.length;
+    document.querySelector("[data-summary-pending]").textContent = dados.campaigns.filter((campanha) => !dataStore.auditGate(dados, campanha.id).allowed).length;
+    document.querySelector("[data-summary-alerts]").textContent = auditoriasAtuais.reduce((total, auditoria) => total + (auditoria.alerts || []).length, 0);
   }
 
   const nome = sessao.usuario.nome || "Integrante";

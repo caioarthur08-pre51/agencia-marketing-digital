@@ -3,154 +3,73 @@
 
   const STORAGE_KEY = "eloDigital.dados.v2";
   const STATUS = ["Novo contato", "Em análise", "Proposta", "Cliente", "Inativo"];
+  const CAMPAIGN_STATUS = ["Rascunho", "Planejada", "Em produção", "Agendada", "Em andamento", "Pausada", "Concluída"];
+  const CHANNELS = ["Instagram", "Facebook", "WhatsApp", "TikTok", "YouTube", "Google Ads"];
   const OBJETIVOS = ["Alcance", "Reconhecimento de marca", "Engajamento", "Tráfego", "Geração de contatos", "Vendas"];
-  const DEMO_IDS = Object.freeze({
-    company: "demo-company-cafe",
-    campaign: "demo-campaign-combo",
-    copy: "demo-copy-story",
-    briefing: "demo-brief-story"
-  });
+  const DEMO_IDS = Object.freeze({ company: "demo-company-cafe", campaign: "demo-campaign-combo", copy: "demo-copy-story", briefing: "demo-brief-story", riskCopy: "demo-copy-risk", riskBriefing: "demo-brief-risk", audit: "demo-audit-initial" });
 
-  function agora() { return new Date().toISOString(); }
-  function id(prefix) {
-    const value = globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-    return `${prefix}-${value}`;
-  }
+  function now() { return new Date().toISOString(); }
+  function id(prefix) { const value = globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`; return `${prefix}-${value}`; }
   function clone(value) { return JSON.parse(JSON.stringify(value)); }
-  function vazio() { return { version: 2, companies: [], campaigns: [], copies: [], briefings: [] }; }
+  function number(value) { const parsed = Number(String(value ?? "").replace(",", ".")); return Number.isFinite(parsed) ? parsed : 0; }
+  function emptyMetrics() { return { reach: 0, impressions: 0, clicks: 0, contacts: 0, conversions: 0, investment: 0, revenue: 0 }; }
+  function empty() { return { version: 3, companies: [], campaigns: [], copies: [], briefings: [], schedules: [], audits: [] }; }
 
-  function normalizar(data) {
-    const base = data && typeof data === "object" ? data : {};
+  function normalizeCampaign(record) {
+    const campaign = record && typeof record === "object" ? record : {}; const demo = campaign.id === DEMO_IDS.campaign;
     return {
-      version: 2,
-      companies: Array.isArray(base.companies) ? base.companies : [],
-      campaigns: Array.isArray(base.campaigns) ? base.campaigns : [],
-      copies: Array.isArray(base.copies) ? base.copies : [],
-      briefings: Array.isArray(base.briefings) ? base.briefings : []
+      ...campaign,
+      managerStatus: campaign.managerStatus || (demo ? "Em produção" : "Rascunho"), campaignType: campaign.campaignType || (demo ? "Híbrida" : "Orgânica"),
+      channels: Array.isArray(campaign.channels) ? campaign.channels : (demo ? ["Instagram", "WhatsApp"] : []), accounts: campaign.accounts && typeof campaign.accounts === "object" ? campaign.accounts : {},
+      startDate: campaign.startDate || (demo ? "2026-11-10" : ""), endDate: campaign.endDate || (demo ? "2026-11-30" : ""), budgetPlanned: number(campaign.budgetPlanned || (demo ? 600 : 0)),
+      responsible: campaign.responsible || (demo ? "Equipe Elo" : ""), strategy: campaign.strategy || (demo ? "Conteúdo orgânico e impulsionamento simulado para apresentar o combo no período da manhã." : ""),
+      callToAction: campaign.callToAction || (demo ? "Peça pelo WhatsApp" : ""), managerNotes: campaign.managerNotes || "", targetMinors: Boolean(campaign.targetMinors), repeatedContact: Boolean(campaign.repeatedContact),
+      selectedCopyIds: Array.isArray(campaign.selectedCopyIds) ? campaign.selectedCopyIds : (demo ? [DEMO_IDS.copy, DEMO_IDS.riskCopy] : []), selectedBriefingIds: Array.isArray(campaign.selectedBriefingIds) ? campaign.selectedBriefingIds : (demo ? [DEMO_IDS.briefing, DEMO_IDS.riskBriefing] : []),
+      goals: { ...emptyMetrics(), ...(campaign.goals || {}), investment: number(campaign.goals?.investment || campaign.budgetPlanned || (demo ? 600 : 0)) },
+      results: { ...emptyMetrics(), ...(campaign.results || {}), investment: number(campaign.results?.investment || (demo ? 260 : 0)), revenue: number(campaign.results?.revenue || (demo ? 780 : 0)), reach: number(campaign.results?.reach || (demo ? 4200 : 0)), impressions: number(campaign.results?.impressions || (demo ? 6100 : 0)), clicks: number(campaign.results?.clicks || (demo ? 340 : 0)), contacts: number(campaign.results?.contacts || (demo ? 72 : 0)), conversions: number(campaign.results?.conversions || (demo ? 31 : 0)) }
     };
   }
 
+  function normalize(data) {
+    const base = data && typeof data === "object" ? data : {};
+    return { version: 3, companies: Array.isArray(base.companies) ? base.companies : [], campaigns: Array.isArray(base.campaigns) ? base.campaigns.map(normalizeCampaign) : [], copies: Array.isArray(base.copies) ? base.copies : [], briefings: Array.isArray(base.briefings) ? base.briefings : [], schedules: Array.isArray(base.schedules) ? base.schedules : [], audits: Array.isArray(base.audits) ? base.audits : [] };
+  }
   function load() {
-    try { return normalizar(JSON.parse(localStorage.getItem(STORAGE_KEY) || "null")); }
-    catch (_error) { return vazio(); }
+    try { const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null"); const data = normalize(raw); if (raw && raw.version !== 3) localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); return data; }
+    catch (_error) { return empty(); }
   }
-  function save(data) {
-    const next = normalizar(data);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    window.dispatchEvent(new CustomEvent("elo:datachange", { detail: clone(next) }));
-    return next;
-  }
+  function save(data) { const next = normalize(data); localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); window.dispatchEvent(new CustomEvent("elo:datachange", { detail: clone(next) })); return next; }
 
   function demoRecords() {
     const createdAt = "2026-11-04T12:00:00.000Z";
     return {
-      company: {
-        id: DEMO_IDS.company, name: "Café do Bairro", segment: "Cafeteria e alimentação",
-        region: "Comércio local", audienceSummary: "Pessoas que trabalham ou estudam na região e buscam uma opção prática de café da manhã.",
-        description: "Cafeteria fictícia de bairro com atendimento acolhedor e produtos artesanais.",
-        products: "Cafés, pães artesanais, bolos e combos de café da manhã", channels: "Instagram e WhatsApp",
-        ageRange: "20 a 55 anos", location: "Bairro e regiões próximas", interests: "Café, gastronomia e praticidade",
-        needs: "Economizar tempo sem abrir mão de uma boa refeição", behavior: "Costuma pesquisar opções e preços antes de comprar.",
-        preferredChannel: "WhatsApp", interactionFrequency: "Semanal", interestLevel: "Alto", status: "Proposta",
-        lastContact: new Date().toISOString().slice(0, 10), createdAt, updatedAt: createdAt, demo: true
-      },
-      campaign: {
-        id: DEMO_IDS.campaign, companyId: DEMO_IDS.company, product: "Combo de café da manhã",
-        objective: "Vendas", notes: "Divulgar o combo nos canais digitais e estimular pedidos no período da manhã.",
-        createdAt, updatedAt: createdAt, demo: true
-      },
-      copy: {
-        id: DEMO_IDS.copy, campaignId: DEMO_IDS.campaign, type: "Story", objective: "Vendas",
-        tone: "Acolhedor", trigger: "Benefício concreto", length: "Curto", price: "R$ 19,90",
-        discount: "", deadline: "", conditions: "Enquanto houver disponibilidade no dia", socialProof: "", quantity: "",
-        instructions: "Destacar praticidade e sabor.",
-        text: "Comece o dia com sabor e praticidade. ☕\nNosso combo de café da manhã reúne café fresquinho e acompanhamentos por R$ 19,90.\nPeça pelo WhatsApp.",
-        prompt: "Crie um texto curto para story, com tom acolhedor e foco em vendas do combo de café da manhã do Café do Bairro. Destaque praticidade, use apenas a oferta informada de R$ 19,90 e finalize com uma chamada para pedir pelo WhatsApp.",
-        createdAt, updatedAt: createdAt, demo: true
-      },
-      briefing: {
-        id: DEMO_IDS.briefing, campaignId: DEMO_IDS.campaign, family: "Story", variant: "Story",
-        mediaType: "Imagem", duration: "", title: "Seu café da manhã está pronto",
-        supportText: "Sabor e praticidade para começar bem o dia.", cta: "Peça pelo WhatsApp",
-        bgColor: "#7c3aed", textColor: "#ffffff", alignment: "center", position: "center",
-        textSize: "medium", textWeight: "800", copyId: DEMO_IDS.copy, imageName: "",
-        createdAt, updatedAt: createdAt, demo: true
-      }
+      company: { id: DEMO_IDS.company, name: "Café do Bairro", segment: "Cafeteria e alimentação", region: "Comércio local", audienceSummary: "Pessoas que trabalham ou estudam na região e buscam uma opção prática de café da manhã.", description: "Cafeteria fictícia de bairro com atendimento acolhedor e produtos artesanais.", products: "Cafés, pães artesanais, bolos e combos de café da manhã", channels: "Instagram e WhatsApp", ageRange: "20 a 55 anos", location: "Bairro e regiões próximas", interests: "Café, gastronomia e praticidade", needs: "Economizar tempo sem abrir mão de uma boa refeição", behavior: "Costuma pesquisar opções e preços antes de comprar.", preferredChannel: "WhatsApp", interactionFrequency: "Semanal", interestLevel: "Alto", status: "Proposta", lastContact: new Date().toISOString().slice(0, 10), createdAt, updatedAt: createdAt, demo: true },
+      campaign: normalizeCampaign({ id: DEMO_IDS.campaign, companyId: DEMO_IDS.company, product: "Combo de café da manhã", objective: "Vendas", notes: "Divulgar o combo nos canais digitais e estimular pedidos no período da manhã.", managerStatus: "Em produção", campaignType: "Híbrida", channels: ["Instagram", "WhatsApp"], accounts: { Instagram: "@cafedobairro_demo", WhatsApp: "Canal fictício da cafeteria" }, startDate: "2026-11-10", endDate: "2026-11-30", budgetPlanned: 600, responsible: "Equipe Elo", strategy: "Conteúdo orgânico e impulsionamento simulado para apresentar o combo no período da manhã.", callToAction: "Peça pelo WhatsApp", selectedCopyIds: [DEMO_IDS.copy, DEMO_IDS.riskCopy], selectedBriefingIds: [DEMO_IDS.briefing, DEMO_IDS.riskBriefing], goals: { reach: 5000, impressions: 7000, clicks: 400, contacts: 90, conversions: 40, investment: 600, revenue: 1200 }, results: { reach: 4200, impressions: 6100, clicks: 340, contacts: 72, conversions: 31, investment: 260, revenue: 780 }, createdAt, updatedAt: createdAt, demo: true }),
+      copy: { id: DEMO_IDS.copy, campaignId: DEMO_IDS.campaign, type: "Story", objective: "Vendas", tone: "Acolhedor", trigger: "Benefício concreto", length: "Curto", price: "R$ 19,90", discount: "", deadline: "", conditions: "Enquanto houver disponibilidade no dia", socialProof: "", quantity: "", instructions: "Destacar praticidade e sabor.", text: "Comece o dia com sabor e praticidade. ☕\nNosso combo de café da manhã reúne café fresquinho e acompanhamentos por R$ 19,90.\nPeça pelo WhatsApp.", prompt: "Crie um texto curto para story, com tom acolhedor e foco em vendas do combo de café da manhã do Café do Bairro.", createdAt, updatedAt: createdAt, demo: true },
+      briefing: { id: DEMO_IDS.briefing, campaignId: DEMO_IDS.campaign, family: "Story", variant: "Story", mediaType: "Imagem", duration: "", title: "Seu café da manhã está pronto", supportText: "Sabor e praticidade para começar bem o dia.", cta: "Peça pelo WhatsApp", bgColor: "#7c3aed", textColor: "#ffffff", alignment: "center", position: "center", textSize: "medium", textWeight: "800", copyId: DEMO_IDS.copy, imageName: "", imageSource: "Material próprio fictício", createdAt, updatedAt: createdAt, demo: true },
+      riskCopy: { id: DEMO_IDS.riskCopy, campaignId: DEMO_IDS.campaign, type: "Story", objective: "Vendas", tone: "Promocional", trigger: "Urgência", length: "Curto", price: "R$ 19,90", discount: "", deadline: "", conditions: "", socialProof: "", quantity: "", instructions: "Exemplo propositalmente incompleto para a Auditoria.", text: "Só hoje! Garanta já o combo de café da manhã por R$ 19,90.", prompt: "Exemplo acadêmico com pendências para revisão.", createdAt, updatedAt: createdAt, demo: true, auditExample: true },
+      riskBriefing: { id: DEMO_IDS.riskBriefing, campaignId: DEMO_IDS.campaign, family: "Story", variant: "Story", mediaType: "Imagem", duration: "", title: "Só hoje!", supportText: "Combo de café da manhã por R$ 19,90.", cta: "Peça agora", bgColor: "#ec4899", textColor: "#ffffff", alignment: "center", position: "center", textSize: "large", textWeight: "800", copyId: DEMO_IDS.riskCopy, imageName: "foto-combo-exemplo.jpg", imageSource: "", createdAt, updatedAt: createdAt, demo: true, auditExample: true },
+      audit: { id: DEMO_IDS.audit, campaignId: DEMO_IDS.campaign, revision: 1, result: "Desfavorável", riskLevel: "Bloqueador", summary: "A oferta usa urgência sem data definida e a origem da imagem ainda não foi registrada.", offerSummary: "Story do combo de café da manhã por R$ 19,90.", checklist: { privacy: "Atendido", advertising: "Precisa de ajuste", copyright: "Precisa de ajuste", imageRights: "Precisa de ajuste", accessibility: "Atendido", channelRules: "Atendido", children: "Não se aplica", repeatedContact: "Não se aplica" }, checklistNotes: "Definir a validade da oferta e registrar a fonte ou licença da imagem.", alerts: [{ id: "demo-alert-urgency", severity: "Bloqueador", title: "Urgência sem prazo definido", detail: "O texto usa “Só hoje!”, mas a oferta não informa uma data de validade.", sourceType: "Copy", sourceId: DEMO_IDS.riskCopy }, { id: "demo-alert-image", severity: "Alto risco", title: "Origem da imagem não registrada", detail: "A peça possui um nome de arquivo, mas não informa autoria, licença ou autorização de uso.", sourceType: "Peça", sourceId: DEMO_IDS.riskBriefing }], recommendations: "Informar data e horário de validade, detalhar o conteúdo do combo e usar imagem própria ou registrar sua licença.", reviewedBy: "Equipe Elo", reviewedAt: "2026-11-04T15:00:00.000Z", acceptedBy: "Equipe Elo", acceptedAt: "2026-11-04T15:05:00.000Z", acceptanceJustification: "Ciência registrada para demonstração.", immutable: true, demo: true }
     };
   }
 
   function ensureDemoData() {
-    const data = load();
-    const demo = demoRecords();
-    let changed = false;
-    [["companies", demo.company], ["campaigns", demo.campaign], ["copies", demo.copy], ["briefings", demo.briefing]].forEach(([collection, record]) => {
-      if (!data[collection].some((item) => item.id === record.id)) { data[collection].push(record); changed = true; }
-    });
+    const data = load(); const demo = demoRecords(); let changed = false;
+    [["companies", demo.company], ["campaigns", demo.campaign], ["copies", demo.copy], ["briefings", demo.briefing], ["copies", demo.riskCopy], ["briefings", demo.riskBriefing], ["audits", demo.audit]].forEach(([collection, record]) => { if (!data[collection].some((item) => item.id === record.id)) { data[collection].push(record); changed = true; } });
     return changed ? save(data) : data;
   }
+  function upsert(collection, record, prefix) { const data = load(); const stamp = now(); const value = collection === "campaigns" ? normalizeCampaign(record) : record; const next = { ...value, id: value.id || id(prefix), updatedAt: stamp, createdAt: value.createdAt || stamp }; const index = data[collection].findIndex((item) => item.id === next.id); if (index >= 0) data[collection][index] = next; else data[collection].push(next); save(data); return clone(next); }
+  function remove(collection, recordId) { const data = load(); data[collection] = data[collection].filter((item) => item.id !== recordId); save(data); }
+  function removeCompany(companyId) { const data = load(); const campaignIds = data.campaigns.filter((item) => item.companyId === companyId).map((item) => item.id); data.companies = data.companies.filter((item) => item.id !== companyId); data.campaigns = data.campaigns.filter((item) => item.companyId !== companyId); data.copies = data.copies.filter((item) => !campaignIds.includes(item.campaignId)); data.briefings = data.briefings.filter((item) => !campaignIds.includes(item.campaignId)); data.schedules = data.schedules.filter((item) => !campaignIds.includes(item.campaignId)); data.audits = data.audits.filter((item) => !campaignIds.includes(item.campaignId)); save(data); }
+  function removeCampaign(campaignId) { const data = load(); data.campaigns = data.campaigns.filter((item) => item.id !== campaignId); data.copies = data.copies.filter((item) => item.campaignId !== campaignId); data.briefings = data.briefings.filter((item) => item.campaignId !== campaignId); data.schedules = data.schedules.filter((item) => item.campaignId !== campaignId); data.audits = data.audits.filter((item) => item.campaignId !== campaignId); save(data); }
+  function potential(company) { if (company.status === "Cliente") return { kind: "converted", label: "Convertido", value: 100 }; if (company.status === "Inativo") return { kind: "inactive", label: "Sem priorização", value: 0 }; const base = { "Novo contato": 25, "Em análise": 45, "Proposta": 70 }[company.status] || 25; const contact = company.lastContact ? new Date(`${company.lastContact}T12:00:00`) : null; const days = contact && !Number.isNaN(contact.getTime()) ? Math.max(0, Math.floor((Date.now() - contact.getTime()) / 86400000)) : 999; const adjustment = days <= 7 ? 15 : days <= 30 ? 5 : days <= 60 ? -10 : -20; const value = Math.max(0, Math.min(100, base + adjustment)); return { kind: "score", label: `${value} pontos`, value, days }; }
+  function metrics(campaign) { const result = { ...emptyMetrics(), ...(campaign?.results || {}) }; const safe = (a, b, factor = 1) => number(b) > 0 ? number(a) / number(b) * factor : null; return { ctr: safe(result.clicks, result.impressions, 100), cpc: safe(result.investment, result.clicks), costPerContact: safe(result.investment, result.contacts), conversionRate: safe(result.conversions, result.clicks, 100), roi: result.investment > 0 ? (result.revenue - result.investment) / result.investment * 100 : null }; }
+  function latestAudit(data, campaignId) { return data.audits.filter((item) => item.campaignId === campaignId).sort((a, b) => String(b.reviewedAt).localeCompare(String(a.reviewedAt)))[0] || null; }
+  function auditGate(dataOrId, maybeId) { const data = typeof dataOrId === "string" ? load() : dataOrId; const campaignId = typeof dataOrId === "string" ? dataOrId : maybeId; const audit = latestAudit(data, campaignId); if (!audit) return { allowed: false, audit: null, reason: "A campanha ainda não possui parecer concluído." }; if (audit.result === "Desfavorável") return { allowed: false, audit, reason: "O parecer mais recente é desfavorável." }; if ((audit.alerts || []).some((item) => item.severity === "Bloqueador")) return { allowed: false, audit, reason: "O parecer mais recente contém alerta bloqueador." }; return { allowed: true, audit, reason: audit.result }; }
+  function saveAudit(record) { const data = load(); const revision = data.audits.filter((item) => item.campaignId === record.campaignId).reduce((max, item) => Math.max(max, Number(item.revision) || 0), 0) + 1; const stamp = now(); const next = { ...record, id: id("audit"), revision, reviewedAt: stamp, createdAt: stamp, immutable: true }; data.audits.push(next); save(data); return clone(next); }
+  function importBackup(value) { const parsed = typeof value === "string" ? JSON.parse(value) : value; if (!parsed || !Array.isArray(parsed.companies) || !Array.isArray(parsed.campaigns) || !Array.isArray(parsed.copies) || !Array.isArray(parsed.briefings)) throw new Error("O arquivo não contém um backup completo da Agência Elo Digital."); return save(parsed); }
 
-  function upsert(collection, record, prefix) {
-    const data = load();
-    const stamp = agora();
-    const next = { ...record, id: record.id || id(prefix), updatedAt: stamp, createdAt: record.createdAt || stamp };
-    const index = data[collection].findIndex((item) => item.id === next.id);
-    if (index >= 0) data[collection][index] = next; else data[collection].push(next);
-    save(data);
-    return clone(next);
-  }
-
-  function remove(collection, recordId) {
-    const data = load();
-    data[collection] = data[collection].filter((item) => item.id !== recordId);
-    save(data);
-  }
-
-  function removeCompany(companyId) {
-    const data = load();
-    const campaignIds = data.campaigns.filter((item) => item.companyId === companyId).map((item) => item.id);
-    data.companies = data.companies.filter((item) => item.id !== companyId);
-    data.campaigns = data.campaigns.filter((item) => item.companyId !== companyId);
-    data.copies = data.copies.filter((item) => !campaignIds.includes(item.campaignId));
-    data.briefings = data.briefings.filter((item) => !campaignIds.includes(item.campaignId));
-    save(data);
-  }
-
-  function removeCampaign(campaignId) {
-    const data = load();
-    data.campaigns = data.campaigns.filter((item) => item.id !== campaignId);
-    data.copies = data.copies.filter((item) => item.campaignId !== campaignId);
-    data.briefings = data.briefings.filter((item) => item.campaignId !== campaignId);
-    save(data);
-  }
-
-  function potential(company) {
-    if (company.status === "Cliente") return { kind: "converted", label: "Convertido", value: 100 };
-    if (company.status === "Inativo") return { kind: "inactive", label: "Sem priorização", value: 0 };
-    const base = { "Novo contato": 25, "Em análise": 45, "Proposta": 70 }[company.status] || 25;
-    const contact = company.lastContact ? new Date(`${company.lastContact}T12:00:00`) : null;
-    const days = contact && !Number.isNaN(contact.getTime()) ? Math.max(0, Math.floor((Date.now() - contact.getTime()) / 86400000)) : 999;
-    const adjustment = days <= 7 ? 15 : days <= 30 ? 5 : days <= 60 ? -10 : -20;
-    const value = Math.max(0, Math.min(100, base + adjustment));
-    return { kind: "score", label: `${value} pontos`, value, days };
-  }
-
-  function importBackup(value) {
-    const parsed = typeof value === "string" ? JSON.parse(value) : value;
-    if (!parsed || !Array.isArray(parsed.companies) || !Array.isArray(parsed.campaigns) || !Array.isArray(parsed.copies) || !Array.isArray(parsed.briefings)) {
-      throw new Error("O arquivo não contém um backup completo da Agência Elo Digital.");
-    }
-    return save(parsed);
-  }
-
-  window.EloData = Object.freeze({
-    STORAGE_KEY, STATUS, OBJETIVOS, DEMO_IDS, load, save, ensureDemoData, demoRecords, potential, importBackup,
-    saveCompany: (record) => upsert("companies", record, "company"),
-    saveCampaign: (record) => upsert("campaigns", record, "campaign"),
-    saveCopy: (record) => upsert("copies", record, "copy"),
-    saveBriefing: (record) => upsert("briefings", record, "briefing"),
-    removeCompany, removeCampaign,
-    removeCopy: (recordId) => remove("copies", recordId),
-    removeBriefing: (recordId) => remove("briefings", recordId),
-    newId: id
-  });
+  window.EloData = Object.freeze({ STORAGE_KEY, STATUS, CAMPAIGN_STATUS, CHANNELS, OBJETIVOS, DEMO_IDS, load, save, ensureDemoData, demoRecords, potential, metrics, latestAudit, auditGate, importBackup,
+    saveCompany: (record) => upsert("companies", record, "company"), saveCampaign: (record) => upsert("campaigns", record, "campaign"), saveCopy: (record) => upsert("copies", record, "copy"), saveBriefing: (record) => upsert("briefings", record, "briefing"), saveSchedule: (record) => upsert("schedules", record, "schedule"), saveAudit,
+    removeCompany, removeCampaign, removeCopy: (recordId) => remove("copies", recordId), removeBriefing: (recordId) => remove("briefings", recordId), removeSchedule: (recordId) => remove("schedules", recordId), newId: id });
 }());
